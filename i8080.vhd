@@ -29,7 +29,7 @@ signal ToALUFromFlagsFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal FromALUToDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToALUFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToAdressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
-signal GroupToControlUnit: STD_LOGIC_VECTOR(1 DOWNTO 0);
+signal EnableCommand: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal DDD: STD_LOGIC_VECTOR(2 DOWNTO 0);
 signal SSS: STD_LOGIC_VECTOR(2 DOWNTO 0);
 ----------------------------------
@@ -116,7 +116,7 @@ PORT(
 	CLK: IN STD_LOGIC;
 	RESET: IN STD_LOGIC;
 	FromInstructionRegister: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	GroupToControlUnit: OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
+	EnableCommand: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	DDD: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SSS: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
@@ -128,7 +128,7 @@ PORT(
 	CLK: IN STD_LOGIC;
 	RESET: IN STD_LOGIC;
 	InternalDataBus: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	GroupFromDecoder: IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
 	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
@@ -156,8 +156,8 @@ BEGIN
 	U4: FlagFlipFlops PORT MAP (CLK, RESET, InternalDataBus, ToALUFromFlags, FromALUtoFlags, ControlBus);
 	U5: DecimalAdjust PORT MAP (CLK, RESET, ToALUFromDA, FromALUToDA, ControlBus);
 	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus);
-	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, GroupToControlUnit, DDD, SSS, ControlBus);
-	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, GroupToControlUnit, DDD, SSS, F1_command, F2_command, ControlBus);
+	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus);
+	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
 	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, ToAdressBus, ControlBus);
 	
 	LED<=AccumulatorOutput;

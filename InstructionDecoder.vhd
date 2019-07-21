@@ -7,7 +7,7 @@ PORT(
 	CLK: IN STD_LOGIC;
 	RESET: IN STD_LOGIC;
 	FromInstructionRegister: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	GroupToControlUnit: OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
+	EnableCommand: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	DDD: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SSS: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
@@ -23,11 +23,10 @@ BEGIN
 		IF (rising_edge(CLK)) THEN
 			IF(RESET='1') THEN
 				DecoderReg<="00000000";
-				GroupToControlUnit<="ZZ";
+				EnableCommand<="ZZZZZZZZ";
 				DDD<="ZZZ";
 				SSS<="ZZZ";
 			ELSE
-				GroupToControlUnit <= DecoderReg(7 downto 6);
 				DDD <= DecoderReg(5 downto 3);
 				SSS <= DecoderReg(2 downto 0);
 			END IF;
