@@ -381,6 +381,278 @@ PORT(
 );
 END COMPONENT CMP;
 --------------------------------------------------------------------------------------------------------------
+COMPONENT RETIF
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT RETIF;
+-------------------------------------------------------
+COMPONENT POP
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT POP;
+-------------------------------------------------------
+COMPONENT JPM_IF
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT JPM_IF;
+-------------------------------------------------------
+COMPONENT CALLIF
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT CALLIF;
+-------------------------------------------------------
+COMPONENT PUSH
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT PUSH;
+-------------------------------------------------------
+COMPONENT RST
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	DDD: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT RST;
+-------------------------------------------------------
+COMPONENT RET
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT RET;
+-------------------------------------------------------
+COMPONENT PCHL
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT PCHL;
+-------------------------------------------------------
+COMPONENT SPHL
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT SPHL;
+-------------------------------------------------------
+COMPONENT JMP
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT JMP;
+-------------------------------------------------------
+COMPONENT PortOUT
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT PortOUT;
+-------------------------------------------------------
+COMPONENT PortIN
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT PortIN;
+-------------------------------------------------------
+COMPONENT XTHL
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT XTHL;
+-------------------------------------------------------
+COMPONENT XCHG
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT XCHG;
+-------------------------------------------------------
+COMPONENT DI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT DI;
+-------------------------------------------------------
+COMPONENT EI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT EI;
+-------------------------------------------------------
+COMPONENT CALL
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT CALL;
+-------------------------------------------------------
+COMPONENT ADI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT ADI;
+-------------------------------------------------------
+COMPONENT ACI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT ACI;
+-------------------------------------------------------
+COMPONENT SUI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT SUI;
+-------------------------------------------------------
+COMPONENT SBI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT SBI;
+-------------------------------------------------------
+COMPONENT ANI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT ANI;
+-------------------------------------------------------
+COMPONENT XRI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT XRI;
+-------------------------------------------------------
+COMPONENT ORI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT ORI;
+-------------------------------------------------------
+COMPONENT CPI
+PORT(
+	CLK: IN STD_LOGIC;
+	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	CommandReset: OUT STD_LOGIC;
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT CPI;
+--------------------------------------------------------------------------------------------------------------
 BEGIN
 -------------------------------------------------------00 GROUP-------------------------------------------------------
 	U0: NOP  PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
@@ -424,31 +696,31 @@ BEGIN
 -------------------------------------------------------10 GROUP-------------------------------------------------------	
 
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
---	U32: RETIF   PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
---	U33: POP     PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
---	U34: RET     PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U35: PCHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U36: SPHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U37: JPM_IF  PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
---	U38: JMP     PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U39: PortOUT PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U40: PortIN  PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U41: XTHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U42: XCHG    PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U43: DI      PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U44: EI      PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U45: CALLIF  PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
---	U46: PUSH    PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
---	U47: CALL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, ControlBus);
---	U48: ADI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U49: ACI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U50: SUI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U51: SBI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U52: ANI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U53: XRI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U54: ORI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U55: CPI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, F1_command, F2_command, ControlBus);
---	U56: RST     PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, ControlBus);
+	U32: RETIF   PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
+	U33: POP     PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
+	U34: RET     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U35: PCHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U36: SPHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U37: JPM_IF  PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
+	U38: JMP     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U39: PortOUT PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U40: PortIN  PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U41: XTHL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U42: XCHG    PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U43: DI      PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U44: EI      PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U45: CALLIF  PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
+	U46: PUSH    PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
+	U47: CALL    PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_ControlBus);
+	U48: ADI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U49: ACI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U50: SUI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U51: SBI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U52: ANI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U53: XRI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U54: ORI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U55: CPI     PORT MAP (CLK, Counter, EnableCommand, CommandReset, Buff_F1, Buff_F2, Buff_ControlBus);
+	U56: RST     PORT MAP (CLK, Counter, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
 	PROCESS(CLK, Counter, RESET, CommandReset)
 	BEGIN
