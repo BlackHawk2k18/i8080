@@ -1,5 +1,5 @@
 # i8080
-Emulator of i8080 with support of full command list. Based on FPGA Altera Cyclone IV. 
+Emulator of i8080 with full command list support. Based on FPGA Altera Cyclone IV. 
 
 Status of left commands:
 
