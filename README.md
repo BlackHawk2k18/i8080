@@ -14,12 +14,15 @@ Status of left commands:
 	SHLD: NOT READY;
 	LHLD: NOT READY;
 	XCHG: NOT READY;
+	
 2)Jump commands:
 	JMP: NOT READY;
 	JMP_IF: NOT READY;
+	
 3)I/O commands:
 	Port_IN: NOT READY;
 	Port_OUT: NOT READY;
+	
 4)Arithmetic commands:
 	ADD: NOT READY;
 	ADC: NOT READY;
@@ -31,6 +34,7 @@ Status of left commands:
 	SBB: NOT READY;
 	SUI: NOT READY;
 	SBI: NOT READY;
+	
 5)Logic commands:
 	ANA: NOT READY;
 	XRA: NOT READY;
