@@ -103,13 +103,6 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 set_global_assignment -name VHDL_FILE i8080.vhd
-set_global_assignment -name VHDL_FILE ALU.vhd
-set_global_assignment -name VHDL_FILE "ALU Components/Sub_Sum.vhd"
-set_global_assignment -name VHDL_FILE "ALU Components/OR_Gate.vhd"
-set_global_assignment -name VHDL_FILE "ALU Components/Not_Gate.vhd"
-set_global_assignment -name VHDL_FILE "ALU Components/And_Gate.vhd"
-set_global_assignment -name VHDL_FILE "ALU Components/Mux2_1.vhd"
-set_global_assignment -name VHDL_FILE "ALU Components/Mux4_1.vhd"
 set_global_assignment -name VHDL_FILE Accumulator.vhd
 set_global_assignment -name VHDL_FILE AccumulatorLatch.vhd
 set_global_assignment -name VHDL_FILE BufferRegister.vhd
@@ -119,16 +112,13 @@ set_global_assignment -name VHDL_FILE InstructionDecoder.vhd
 set_global_assignment -name VHDL_FILE TimingAndControlUnit.vhd
 set_global_assignment -name VHDL_FILE DecimalAdjust.vhd
 set_global_assignment -name VHDL_FILE CommonRegisters.vhd
-set_global_assignment -name VHDL_FILE Commands/10/XRA.vhd
-set_global_assignment -name VHDL_FILE Commands/10/SUB.vhd
-set_global_assignment -name VHDL_FILE Commands/10/SBB.vhd
-set_global_assignment -name VHDL_FILE Commands/10/ORA.vhd
-set_global_assignment -name VHDL_FILE Commands/10/CMP.vhd
-set_global_assignment -name VHDL_FILE Commands/10/ANA.vhd
-set_global_assignment -name VHDL_FILE Commands/10/ADD.vhd
-set_global_assignment -name VHDL_FILE Commands/10/ADC.vhd
-set_global_assignment -name VHDL_FILE Commands/01/MOV.vhd
-set_global_assignment -name VHDL_FILE Commands/01/HLT.vhd
+set_global_assignment -name VHDL_FILE ALU.vhd
+set_global_assignment -name VHDL_FILE "ALU Components/Sub_Sum.vhd"
+set_global_assignment -name VHDL_FILE "ALU Components/OR_Gate.vhd"
+set_global_assignment -name VHDL_FILE "ALU Components/Not_Gate.vhd"
+set_global_assignment -name VHDL_FILE "ALU Components/And_Gate.vhd"
+set_global_assignment -name VHDL_FILE "ALU Components/Mux2_1.vhd"
+set_global_assignment -name VHDL_FILE "ALU Components/Mux4_1.vhd"
 set_global_assignment -name VHDL_FILE Commands/00/STC.vhd
 set_global_assignment -name VHDL_FILE Commands/00/STAX.vhd
 set_global_assignment -name VHDL_FILE Commands/00/STA.vhd
@@ -151,6 +141,16 @@ set_global_assignment -name VHDL_FILE Commands/00/DAD.vhd
 set_global_assignment -name VHDL_FILE Commands/00/DAA.vhd
 set_global_assignment -name VHDL_FILE Commands/00/CMC.vhd
 set_global_assignment -name VHDL_FILE Commands/00/CMA.vhd
+set_global_assignment -name VHDL_FILE Commands/01/MOV.vhd
+set_global_assignment -name VHDL_FILE Commands/01/HLT.vhd
+set_global_assignment -name VHDL_FILE Commands/10/XRA.vhd
+set_global_assignment -name VHDL_FILE Commands/10/SUB.vhd
+set_global_assignment -name VHDL_FILE Commands/10/SBB.vhd
+set_global_assignment -name VHDL_FILE Commands/10/ORA.vhd
+set_global_assignment -name VHDL_FILE Commands/10/CMP.vhd
+set_global_assignment -name VHDL_FILE Commands/10/ANA.vhd
+set_global_assignment -name VHDL_FILE Commands/10/ADD.vhd
+set_global_assignment -name VHDL_FILE Commands/10/ADC.vhd
 set_global_assignment -name VHDL_FILE Commands/11/ADI.vhd
 set_global_assignment -name VHDL_FILE Commands/11/ACI.vhd
 set_global_assignment -name VHDL_FILE Commands/11/SUI.vhd
