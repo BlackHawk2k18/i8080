@@ -460,9 +460,9 @@ BEGIN
 			END IF;
 		END IF;
 		
---		F1_command<=Buff_F1;
---		F2_command<=Buff_F2;
---		ControlBus<=Buff_ControlBus;
+		F1_command<=Buff_F1;
+		F2_command<=Buff_F2;
+		ControlBus<=Buff_ControlBus;
 		
 	END PROCESS;
 END MAIN;

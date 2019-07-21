@@ -20,4 +20,12 @@ ARCHITECTURE MAIN OF SBB IS
 
 -------------------------------------------------------
 BEGIN
+	PROCESS(CLK, Counter, EnableCommand)
+	BEGIN
+		IF (rising_edge(CLK)) THEN
+			ControlBus<="ZZZZZZZZZZZZZZZZZZ";
+			F1_command<="ZZZZZZZZ";
+			F2_command<='Z';
+		END IF;		
+	END PROCESS;
 END MAIN;

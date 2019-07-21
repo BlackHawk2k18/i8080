@@ -18,4 +18,10 @@ ARCHITECTURE MAIN OF LXI IS
 
 -------------------------------------------------------
 BEGIN
+	PROCESS(CLK, Counter, EnableCommand)
+	BEGIN
+		IF (rising_edge(CLK)) THEN
+			ControlBus<="ZZZZZZZZZZZZZZZZZZ";
+		END IF;		
+	END PROCESS;
 END MAIN;
