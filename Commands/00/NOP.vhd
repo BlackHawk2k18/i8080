@@ -5,7 +5,6 @@ use ieee.numeric_std.all;
 ENTITY NOP IS
 PORT(
 	CLK: IN STD_LOGIC;
-	Counter: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
 	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
 	CommandReset: OUT STD_LOGIC;
 	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
@@ -17,7 +16,7 @@ ARCHITECTURE MAIN OF NOP IS
 
 -------------------------------------------------------
 BEGIN
-	PROCESS(CLK, Counter, EnableCommand)
+	PROCESS(CLK, EnableCommand)
 	BEGIN
 		IF (rising_edge(CLK)) THEN
 			ControlBus<="ZZZZZZZZZZZZZZZZZZ";
