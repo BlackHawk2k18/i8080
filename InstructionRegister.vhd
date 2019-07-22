@@ -16,19 +16,19 @@ ARCHITECTURE MAIN OF InstructionRegister IS
 signal InstrReg: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
---	PROCESS(CLK, InstrReg, RESET, InternalDataBus, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				InstrReg<="00000000";
---			ELSE
---				case ControlBus(8 downto 8) IS
---					when "0" => InstrReg <= InternalDataBus;
---					when "1" => ToDecoder <= InstrReg;
---					when others => ToDecoder <= "ZZZZZZZZ";
---				end case;
---			END IF;
---		END IF;
---	END PROCESS;
+	PROCESS(CLK, InstrReg, RESET, InternalDataBus, ControlBus)
+	BEGIN
+		IF (rising_edge(CLK)) THEN
+			IF(RESET='1') THEN
+				InstrReg<="00000000";
+			ELSE
+				case ControlBus(16 downto 16) IS
+					when "0" => InstrReg <= InternalDataBus;
+					when "1" => ToDecoder <= InstrReg;
+					when others => ToDecoder <= "ZZZZZZZZ";
+				end case;
+			END IF;
+		END IF;
+	END PROCESS;
 
 END MAIN;
