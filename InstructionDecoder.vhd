@@ -29,6 +29,7 @@ BEGIN
 			ELSE
 				DDD <= DecoderReg(5 downto 3);
 				SSS <= DecoderReg(2 downto 0);
+				EnableCommand<=FromInstructionRegister;
 			END IF;
 			
 			IF(ControlBus(16 downto 16)="0") THEN
