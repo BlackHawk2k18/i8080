@@ -12,7 +12,6 @@ END i8080;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF i8080 IS
 ----------------------------------
-signal LED_WIRE: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal InternalDataBus: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal AccumulatorOutput: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ControlBus: STD_LOGIC_VECTOR(17 DOWNTO 0);
@@ -25,7 +24,6 @@ signal FromInstructionRegister: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToControlUnit: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal F1_command: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal F2_command: STD_LOGIC;
-signal ToALUFromFlagsFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal FromALUToDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToALUFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToAdressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
