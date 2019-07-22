@@ -92,3 +92,6 @@ Commands and functional blocks status:
 
 	RET: NOT READY;
 	RETIF: NOT READY;
+
+14)Decimal Adjust Block: NOT READY;
+15)Common Registers: NOT READY;
