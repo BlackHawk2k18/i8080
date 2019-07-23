@@ -23,22 +23,18 @@ BEGIN
 	PROCESS (CLK, F1_command, Summ, Or_r, And_r, ControlBus, MuxReg)
 	BEGIN
 		IF(rising_edge(CLK)) THEN
-			case F1_command is
-				when "00000000" => MuxReg <= Summ; --Сложение
-				when "00000001" => MuxReg <= Summ; --Вычитание
-				when "00000010" => MuxReg <= Summ; --Сложение с переносом
-				when "00000011" => MuxReg <= Summ; --Вычитание с заемом
-				when "00000100" => MuxReg <= Or_r;
-				when "00000101" => MuxReg <= And_r;
-				when "00000110" => MuxReg <= Summ; --Равно
-				when "00000111" => MuxReg <= Summ; --Не равно
-				when "00001000" => MuxReg <= Summ; --Меньше
-				when "00001001" => MuxReg <= Summ; --Больше
-				when others => MuxReg <= "ZZZZZZZZ";
+		case ControlBus(17 downto 17) IS
+			when "1" =>
+				IF(F1_command="00000100") THEN
+					Y_Mux4_1 <= Or_r;
+				ELSIF(F1_command="00000101") THEN
+					Y_Mux4_1 <= And_r;
+				ELSE
+					Y_Mux4_1 <= Summ;
+				END IF;
+			when others => Y_Mux4_1 <= "ZZZZZZZZ";
 			end case;
 		END IF;
 	END PROCESS;
-	
-	Y_Mux4_1<=MuxReg when (ControlBus(17 downto 17)="1") else "ZZZZZZZZ";
 	
 END MAIN;										
