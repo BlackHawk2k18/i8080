@@ -49,32 +49,32 @@ BEGIN
 							-------------------------------------------------------
 								when others => null;
 							end case;
-						when "00000001" => ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
-												 ControlBus(5 downto 4)<="11"; --АЛУ<-РП
-						when "00000010" =>
-							ControlBus(3 downto 0)<="11ZZ"; --АЛУ(А, B)<-(РЗА, БР)
+						when "00000001" => 
+							ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
 							ControlBus(9 downto 8)<="ZZ";
-							ControlBus(17 downto 17)<="1";  --ШД<-АЛУ
+							ControlBus(15 downto 12)<="ZZZZ";
+						when "00000010" =>
+							ControlBus(3 downto 0)<="1100"; --АЛУ(А, B)<-(РЗА, БР) и РА<-ШД
+							Memory_RW<='Z';
 							F1_command<="00000000";
 							F2_command<='0';
-							ControlBus(15 downto 12)<="ZZZZ";
-							Memory_RW<='Z';
-						when "00000011" => ControlBus(1 downto 0)<="00"; --РА<-ШД
-						when "00000100" => ControlBus(1 downto 0)<="00"; --РА<-ШД
+						when "00000011" => 
+							ControlBus(17 downto 17)<="1";  --ШД<-АЛУ
+						when "00000100" => null;
 						when others =>
 							ControlBus<=(others => 'Z');
-							F1_command<="ZZZZZZZZ";
+							F1_command<=(others => 'Z');
 							F2_command<='Z';
 							CommandReset<='1';
-							Counter<="00000000";
+							Counter<=(others => '0');
 							Memory_RW<='Z';
 					end case;
 				when others => 
-					ControlBus<="ZZZZZZZZZZZZZZZZZZ";
-					F1_command<="ZZZZZZZZ";
+					ControlBus<=(others => 'Z');
+					F1_command<=(others => 'Z');
 					F2_command<='Z';
 					CommandReset<='1';
-					Counter<="00000000";
+					Counter<=(others => '0');
 					Memory_RW<='Z';
 			end case;
 		END IF;		
