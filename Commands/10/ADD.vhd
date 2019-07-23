@@ -11,8 +11,7 @@ PORT(
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
 	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC;
-	Device_RW: OUT STD_LOGIC
+	Memory_RW: OUT STD_LOGIC
 );
 END ADD;
 -------------------------------------------------------
@@ -51,6 +50,7 @@ BEGIN
 								when others => null;
 							end case;
 						when "00000001" => ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
+												 ControlBus(5 downto 4)<="11"; --АЛУ<-РП
 						when "00000010" =>
 							ControlBus(3 downto 0)<="11ZZ"; --АЛУ(А, B)<-(РЗА, БР)
 							ControlBus(9 downto 8)<="ZZ";
@@ -58,7 +58,6 @@ BEGIN
 							F1_command<="00000000";
 							F2_command<='0';
 							ControlBus(15 downto 12)<="ZZZZ";
-							ControlBus(1 downto 0)<="ZZ";
 							Memory_RW<='Z';
 						when "00000011" => ControlBus(1 downto 0)<="00"; --РА<-ШД
 						when "00000100" => ControlBus(1 downto 0)<="00"; --РА<-ШД
@@ -69,7 +68,6 @@ BEGIN
 							CommandReset<='1';
 							Counter<="00000000";
 							Memory_RW<='Z';
-							Device_RW<='Z';
 					end case;
 				when others => 
 					ControlBus<="ZZZZZZZZZZZZZZZZZZ";
@@ -78,7 +76,6 @@ BEGIN
 					CommandReset<='1';
 					Counter<="00000000";
 					Memory_RW<='Z';
-					Device_RW<='Z';
 			end case;
 		END IF;		
 	END PROCESS;
