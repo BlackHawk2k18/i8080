@@ -106,6 +106,7 @@ BEGIN
 	U5: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, ToAdressBus, ControlBus);
 	process begin
 		InternalDataBus<="ZZZZZZZZ";
+		ToALUFromFlags<="00000001";
 		DDD<="000";
 		SSS<="000";
 		ControlBus<=(others => 'Z');
@@ -118,7 +119,7 @@ BEGIN
 		ControlBus(1 downto 0)<="00"; wait for 20 ns;
 		ControlBus(1 downto 0)<="ZZ";
 		InternalDataBus<="ZZZZZZZZ";
-		EnableCommand<="10000000"; --КОП Сложение
+		EnableCommand<="10011000"; --КОП Сложение
 		wait;
 	end process;
 	

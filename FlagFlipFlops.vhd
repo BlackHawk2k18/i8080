@@ -21,7 +21,7 @@ BEGIN
 		BEGIN
 			IF (rising_edge(CLK)) THEN
 				IF(RESET='1') THEN
-					FlipFlopReg<="00000000";
+					FlipFlopReg<="00000010";
 					InternalDataBus<="ZZZZZZZZ";
 				ELSE
 					case ControlBus(5 downto 4) IS
