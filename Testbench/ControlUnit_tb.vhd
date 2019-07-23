@@ -24,6 +24,7 @@ signal ToALUFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToALUFromFlags: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal FromALUtoFlags: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToAdressBus: STD_LOGIC_VECTOR (15 DOWNTO 0);
+signal ToDecoder: STD_LOGIC_VECTOR(7 DOWNTO 0);
 ----------------------------------
 COMPONENT TimingAndControlUnit
 PORT(
@@ -96,6 +97,28 @@ PORT(
 );
 END COMPONENT CommonRegisters;
 ----------------------------------
+COMPONENT InstructionRegister
+PORT(
+	CLK: IN STD_LOGIC;
+	RESET: IN STD_LOGIC;
+	InternalDataBus: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	ToDecoder: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT InstructionRegister;
+----------------------------------
+COMPONENT InstructionDecoder
+PORT(
+	CLK: IN STD_LOGIC;
+	RESET: IN STD_LOGIC;
+	FromInstructionRegister: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	EnableCommand: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	DDD: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+	SSS: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+);
+END COMPONENT InstructionDecoder;
+----------------------------------
 BEGIN
 
 	U0: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
@@ -104,22 +127,29 @@ BEGIN
 	U3: AccumulatorLatch PORT MAP (CLK, RESET, AccumulatorOutput, LatchOutput, ControlBus);
 	U4: ALU PORT MAP (CLK, RESET, LatchOutput, BufferOutput, InternalDataBus, FromALUtoFlags, ToALUFromFlags, FromALUToDA, ToALUFromDA, F1_command, F2_command, ControlBus);
 	U5: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, ToAdressBus, ControlBus);
+	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus);
+	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus);
+	
 	process begin
-		InternalDataBus<="ZZZZZZZZ";
-		ToALUFromFlags<="00000001";
-		DDD<="000";
-		SSS<="000";
+		InternalDataBus<=(others => 'Z');
 		ControlBus<=(others => 'Z');
-		EnableCommand<="ZZZZZZZZ";
+		
+		DDD<=(others => 'Z');
+		SSS<=(others => 'Z');
+		
 		RESET<='0'; wait for 10 ns;
 		RESET<='1'; wait for 10 ns;
 		RESET<='0'; wait for 20 ns;
 		
+		ToALUFromFlags<="00000001";
+		
 		InternalDataBus<="00000010";
 		ControlBus(1 downto 0)<="00"; wait for 20 ns;
-		ControlBus(1 downto 0)<="ZZ";
-		InternalDataBus<="ZZZZZZZZ";
-		EnableCommand<="10011000"; --КОП Сложение
+		ControlBus(1 downto 0)<="ZZ"; 
+		InternalDataBus<="10000000"; --КОП Сложение
+		ControlBus(16 downto 16)<="0"; wait for 20 ns; 	
+		ControlBus(16 downto 16)<="Z"; wait for 20 ns;
+		InternalDataBus<=(others => 'Z');
 		wait;
 	end process;
 	
