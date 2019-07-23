@@ -24,8 +24,7 @@ BEGIN
 			ELSE
 				case ControlBus(16 downto 16) IS
 					when "0" => InstrReg <= InternalDataBus;
-					when "1" => ToDecoder <= InstrReg;
-					when others => ToDecoder <= "ZZZZZZZZ";
+					when others => ToDecoder <= InstrReg;
 				end case;
 			END IF;
 		END IF;

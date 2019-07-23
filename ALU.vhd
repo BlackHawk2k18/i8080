@@ -88,7 +88,7 @@ END COMPONENT Mux4_1;
 ----------------------------------
 BEGIN
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	U0: Sub_Sum   PORT MAP (A_operand, Mux2_1_result, Sub_Sum_result, Carry_flag, FromFlags, F1_command, F2_command);             --Суммирование и вычитание
+	U0: Sub_Sum   PORT MAP (A_operand, Mux2_1_result, Sub_Sum_result, Carry_flag, FromFlags, F1_command, F2_command);                  --Суммирование и вычитание
 	U1: OR_Gate   PORT MAP (A_operand, Mux2_1_result, Or_result);                                                                      --Логическое сложение
 	U2: And_Gate  PORT MAP (A_operand, Mux2_1_result, And_result);                                                                     --Логическое умножение
 	U3: Not_Gate  PORT MAP (B_operand, Not_result);                                                                                 	  --Инверсия для B-операнда
@@ -96,10 +96,13 @@ BEGIN
 	U5: Mux4_1    PORT MAP (CLK, Sub_Sum_result, Or_result, And_result, Y_result, F1_command, ControlBus);                             --Мультиплексор для выбора Результата АЛУ
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
---	ToFlags(7)<=Y_result(7);
---	ToFlags(6)<='0' when Y_result(6 downto 0)="0000000" else '1';
---	ToFlags(4)<='0';
---	ToFlags(2)<=not(Y_result(6) and Y_result(5) and Y_result(4) and Y_result(3) and Y_result(2) and Y_result(1) and Y_result(0));
+--	ToFlags(7)<=Y_result(7); --S flag
+--	ToFlags(6)<='0' when Y_result(6 downto 0)="0000000" else '1'; -- Z flag
+--	ToFlags(5)<='0'; 
+--	ToFlags(4)<='0'; -- !CHANGE LOGIC LATER!
+--	ToFlags(3)<='0'; 
+--	ToFlags(2)<=not(Y_result(6) and Y_result(5) and Y_result(4) and Y_result(3) and Y_result(2) and Y_result(1) and Y_result(0)); -- P flag
+--	ToFlags(1)<='1'; -- 1 ALWAYS
 --	ToFlags(0)<=Carry_flag;
 	
 END MAIN;
