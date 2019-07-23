@@ -264,22 +264,22 @@ PORT(
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
 	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC;
-	Device_RW: OUT STD_LOGIC
+	Memory_RW: OUT STD_LOGIC
 );
 END COMPONENT ADD;
 ---------------------------------------------------------
---COMPONENT ADC
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT ADC;
+COMPONENT ADC
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT ADC;
 ---------------------------------------------------------
 COMPONENT SUB
 PORT(
@@ -290,22 +290,22 @@ PORT(
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
 	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC;
-	Device_RW: OUT STD_LOGIC
+	Memory_RW: OUT STD_LOGIC
 );
 END COMPONENT SUB;
 ---------------------------------------------------------
---COMPONENT SBB
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT SBB;
+COMPONENT SBB
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT SBB;
 ---------------------------------------------------------
 --COMPONENT ANA
 --PORT(
@@ -642,10 +642,10 @@ BEGIN
 ---------------------------------------------------------01 GROUP-------------------------------------------------------	
 --	
 -------------------------------------------------------10 GROUP-------------------------------------------------------
-	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
---	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
-	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
---	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
+	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
 --	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U30: ORA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);

@@ -26,6 +26,8 @@ BEGIN
 			case F1_command is
 				when "00000000" => MuxReg <= Summ; --Сложение
 				when "00000001" => MuxReg <= Summ; --Вычитание
+				when "00000010" => MuxReg <= Summ; --Сложение с переносом
+				when "00000011" => MuxReg <= Summ; --Вычитание с заемом
 				when "00000100" => MuxReg <= Or_r;
 				when "00000101" => MuxReg <= And_r;
 				when "00000110" => MuxReg <= Summ; --Равно
