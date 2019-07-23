@@ -10,11 +10,14 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
 );
 END ADD;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF ADD IS
+-------------------------------------------------------
 signal Counter: unsigned(7 downto 0);
 -------------------------------------------------------
 BEGIN
@@ -27,14 +30,24 @@ BEGIN
 					case Counter is
 						when "00000000" =>
 							case SSS is
+							-------------------------------------------------------
 								when "000" => ControlBus(9 downto 8)<="00";   --ШД<-Рег. B
+							-------------------------------------------------------
 								when "001" => ControlBus(11 downto 10)<="00"; --ШД<-Рег. C
+							-------------------------------------------------------
 								when "010" => ControlBus(9 downto 8)<="10";   --ШД<-Рег. D
+							-------------------------------------------------------
 								when "011" => ControlBus(11 downto 10)<="10"; --ШД<-Рег. E
+							-------------------------------------------------------
 								when "100" => ControlBus(13 downto 12)<="00"; --ШД<-Рег. H
+							-------------------------------------------------------
 								when "101" => ControlBus(15 downto 14)<="00"; --ШД<-Рег. L
---								when "110" => ControlBus(15 downto 12)<="1010"; --M(HL)
-								when "111" => ControlBus(1 downto 0)<="01";   --ШД<-РА 
+							-------------------------------------------------------
+								when "110" => ControlBus(15 downto 12)<="1010"; ControlBus(1 downto 0)<="10"; --ШД<-M(HL)
+												  Memory_RW<='1';
+							-------------------------------------------------------
+								when "111" => ControlBus(1 downto 0)<="01";   --ШД<-РА
+							-------------------------------------------------------
 								when others => null;
 							end case;
 						when "00000001" => ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
@@ -44,6 +57,9 @@ BEGIN
 							ControlBus(17 downto 17)<="1";  --ШД<-АЛУ
 							F1_command<="00000000";
 							F2_command<='0';
+							ControlBus(15 downto 12)<="ZZZZ";
+							ControlBus(1 downto 0)<="ZZ";
+							Memory_RW<='Z';
 						when "00000011" => ControlBus(1 downto 0)<="00"; --РА<-ШД
 						when "00000100" => ControlBus(1 downto 0)<="00"; --РА<-ШД
 						when others =>
@@ -52,6 +68,8 @@ BEGIN
 							F2_command<='Z';
 							CommandReset<='1';
 							Counter<="00000000";
+							Memory_RW<='Z';
+							Device_RW<='Z';
 					end case;
 				when others => 
 					ControlBus<="ZZZZZZZZZZZZZZZZZZ";
@@ -59,6 +77,8 @@ BEGIN
 					F2_command<='Z';
 					CommandReset<='1';
 					Counter<="00000000";
+					Memory_RW<='Z';
+					Device_RW<='Z';
 			end case;
 		END IF;		
 	END PROCESS;
