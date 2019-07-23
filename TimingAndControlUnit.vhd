@@ -13,7 +13,9 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
 );
 END TimingAndControlUnit;
 -------------------------------------------------------
@@ -256,12 +258,14 @@ signal Buff_ControlBus: STD_LOGIC_VECTOR (17 DOWNTO 0);
 COMPONENT ADD
 PORT(
 	CLK: IN STD_LOGIC;
-	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
 	CommandReset: OUT STD_LOGIC;
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
 );
 END COMPONENT ADD;
 ---------------------------------------------------------
@@ -277,17 +281,19 @@ END COMPONENT ADD;
 --);
 --END COMPONENT ADC;
 ---------------------------------------------------------
---COMPONENT SUB
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT SUB;
+COMPONENT SUB
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
+);
+END COMPONENT SUB;
 ---------------------------------------------------------
 --COMPONENT SBB
 --PORT(
@@ -636,9 +642,9 @@ BEGIN
 ---------------------------------------------------------01 GROUP-------------------------------------------------------	
 --	
 -------------------------------------------------------10 GROUP-------------------------------------------------------
-	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
+	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
 --	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
---	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
+	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
 --	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
@@ -673,7 +679,4 @@ BEGIN
 --	U55: CPI     PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U56: RST     PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
-	F1_command<=Buff_F1;
-	F2_command<=Buff_F2;
-	ControlBus<=Buff_ControlBus;
 END MAIN;

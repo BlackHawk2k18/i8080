@@ -30,6 +30,8 @@ signal ToAdressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal EnableCommand: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal DDD: STD_LOGIC_VECTOR(2 DOWNTO 0);
 signal SSS: STD_LOGIC_VECTOR(2 DOWNTO 0);
+signal Memory_RW: STD_LOGIC;
+signal Device_RW: STD_LOGIC;
 ----------------------------------
 COMPONENT ALU
 PORT(
@@ -131,7 +133,9 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
 );
 END COMPONENT TimingAndControlUnit;
 ----------------------------------
@@ -155,7 +159,7 @@ BEGIN
 	U5: DecimalAdjust PORT MAP (CLK, RESET, ToALUFromDA, FromALUToDA, ControlBus);
 	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus);
 	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus);
-	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
+	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
 	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, ToAdressBus, ControlBus);
 	
 	LED<=AccumulatorOutput;

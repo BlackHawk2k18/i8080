@@ -36,7 +36,7 @@ BEGIN
 				L <= (others => '0');
 			ELSE
 				IF ControlBus(9 downto 8) = "00" THEN 
-					InternalDataBus<="00001010"; 
+					InternalDataBus<=B; 
 				ELSIF ControlBus(9 downto 8) = "01" THEN 
 					B<=InternalDataBus;
 				ELSIF ControlBus(9 downto 8) = "10" THEN 
