@@ -51,7 +51,7 @@ BEGIN
 							end case;
 						when "00000001" =>  
 							ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
-							ControlBus(9 downto 8)<="ZZ";
+							ControlBus(15 downto 8)<="ZZZZZZZZ";
 							Memory_RW<='Z';
 						when "00000010" =>
 							ControlBus(3 downto 0)<="1100"; --АЛУ(А, B)<-(РЗА, БР)
@@ -60,8 +60,7 @@ BEGIN
 							F2_command<='1';
 						when "00000011" =>
 							ControlBus(17 downto 17)<="1";  --ШД<-АЛУ
-						when "00000100" => 
-							ControlBus(15 downto 12)<="ZZZZ";
+						when "00000100" => null;
 						when others =>
 							ControlBus<=(others => 'Z');
 							F1_command<=(others => 'Z');
