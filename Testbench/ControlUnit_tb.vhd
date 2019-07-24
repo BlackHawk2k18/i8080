@@ -25,6 +25,8 @@ signal ToALUFromFlags: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal FromALUtoFlags: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToAdressBus: STD_LOGIC_VECTOR (15 DOWNTO 0);
 signal ToDecoder: STD_LOGIC_VECTOR(7 DOWNTO 0);
+signal Memory_RW: STD_LOGIC;
+signal Device_RW: STD_LOGIC;
 ----------------------------------
 COMPONENT TimingAndControlUnit
 PORT(
@@ -36,7 +38,9 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC;
+	Device_RW: OUT STD_LOGIC
 );
 END COMPONENT TimingAndControlUnit;
 ----------------------------------
@@ -119,9 +123,18 @@ PORT(
 );
 END COMPONENT InstructionDecoder;
 ----------------------------------
+COMPONENT RAM
+PORT(
+	CLK: IN STD_LOGIC;
+	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+	FromAdressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+	Memory_RW: IN STD_LOGIC
+);
+END COMPONENT RAM;
+----------------------------------
 BEGIN
 
-	U0: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
+	U0: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
 	U1: BufferRegister PORT MAP (CLK, RESET, InternalDataBus, BufferOutput, ControlBus);	
 	U2: Accumulator PORT MAP (CLK, RESET, InternalDataBus, AccumulatorOutput, ControlBus);
 	U3: AccumulatorLatch PORT MAP (CLK, RESET, AccumulatorOutput, LatchOutput, ControlBus);
@@ -129,6 +142,7 @@ BEGIN
 	U5: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, ToAdressBus, ControlBus);
 	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus);
 	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus);
+	U8: RAM PORT MAP (CLK, InternalDataBus, ToAdressBus, Memory_RW);
 	
 	process begin
 		InternalDataBus<=(others => 'Z');
@@ -146,7 +160,7 @@ BEGIN
 		InternalDataBus<="00000010";
 		ControlBus(1 downto 0)<="00"; wait for 20 ns;
 		ControlBus(1 downto 0)<="ZZ"; 
-		InternalDataBus<="10000000"; --КОП Сложение
+		InternalDataBus<="10000110"; --КОП Сложение
 		ControlBus(16 downto 16)<="0"; wait for 20 ns; 	
 		ControlBus(16 downto 16)<="Z"; wait for 20 ns;
 		InternalDataBus<=(others => 'Z');
