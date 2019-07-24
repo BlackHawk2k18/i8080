@@ -30,19 +30,19 @@ BEGIN
 						when "00000000" =>
 							case SSS is
 							-------------------------------------------------------
-								when "000" => ControlBus(9 downto 8)<="00";   --ШД<-Рег. B
+								when "000" => ControlBus(9 downto 8)<="00"; ControlBus(17 downto 17)<="0";  --ШД<-Рег. B
 							-------------------------------------------------------
-								when "001" => ControlBus(11 downto 10)<="00"; --ШД<-Рег. C
+								when "001" => ControlBus(11 downto 10)<="00"; ControlBus(17 downto 17)<="0"; --ШД<-Рег. C
 							-------------------------------------------------------
-								when "010" => ControlBus(9 downto 8)<="10";   --ШД<-Рег. D
+								when "010" => ControlBus(9 downto 8)<="10"; ControlBus(17 downto 17)<="0";   --ШД<-Рег. D
 							-------------------------------------------------------
-								when "011" => ControlBus(11 downto 10)<="10"; --ШД<-Рег. E
+								when "011" => ControlBus(11 downto 10)<="10"; ControlBus(17 downto 17)<="0"; --ШД<-Рег. E
 							-------------------------------------------------------
-								when "100" => ControlBus(13 downto 12)<="00"; --ШД<-Рег. H
+								when "100" => ControlBus(13 downto 12)<="00"; ControlBus(17 downto 17)<="0"; --ШД<-Рег. H
 							-------------------------------------------------------
-								when "101" => ControlBus(15 downto 14)<="00"; --ШД<-Рег. L
+								when "101" => ControlBus(15 downto 14)<="00"; ControlBus(17 downto 17)<="0"; --ШД<-Рег. L
 							-------------------------------------------------------
-								when "110" => ControlBus(15 downto 12)<="1010"; ControlBus(1 downto 0)<="10"; --ШД<-M(HL)
+								when "110" => ControlBus(15 downto 12)<="0000"; ControlBus(1 downto 0)<="10"; --ШД<-M(HL)
 												  Memory_RW<='1';
 							-------------------------------------------------------
 								when "111" => ControlBus(1 downto 0)<="01";   --ШД<-РА
@@ -52,15 +52,15 @@ BEGIN
 						when "00000001" => 
 							ControlBus(3 downto 2)<="00"; --РЗА<-РА | БР<-ШД
 							ControlBus(9 downto 8)<="ZZ";
-							ControlBus(15 downto 12)<="ZZZZ";
+							Memory_RW<='Z';
 						when "00000010" =>
 							ControlBus(3 downto 0)<="1100"; --АЛУ(А, B)<-(РЗА, БР) и РА<-ШД
-							Memory_RW<='Z';
 							F1_command<="00000000";
 							F2_command<='0';
 						when "00000011" => 
 							ControlBus(17 downto 17)<="1";  --ШД<-АЛУ
-						when "00000100" => null;
+						when "00000100" => 
+							ControlBus(15 downto 12)<="ZZZZ";
 						when others =>
 							ControlBus<=(others => 'Z');
 							F1_command<=(others => 'Z');
