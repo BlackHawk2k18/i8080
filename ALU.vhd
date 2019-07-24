@@ -21,6 +21,9 @@ END ALU;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF ALU IS
 ----------------------------------
+signal MuxResult: STD_LOGIC_VECTOR (7 DOWNTO 0);
+signal Z_flag, AC_flag, P_flag: STD_LOGIC;
+----------------------------------
 signal Sub_Sum_result:   STD_LOGIC_VECTOR (7 DOWNTO 0);
 signal Or_result:        STD_LOGIC_VECTOR (7 DOWNTO 0);
 signal And_result:       STD_LOGIC_VECTOR (7 DOWNTO 0);
@@ -93,16 +96,22 @@ BEGIN
 	U2: And_Gate  PORT MAP (A_operand, Mux2_1_result, And_result);                                                                     --Логическое умножение
 	U3: Not_Gate  PORT MAP (B_operand, Not_result);                                                                                 	  --Инверсия для B-операнда
 	U4: Mux2_1    PORT MAP (CLK, B_operand, Not_result, Mux2_1_result, F2_command);                                              		  --Мультиплексор для выбора значения В-операнда
-	U5: Mux4_1    PORT MAP (CLK, Sub_Sum_result, Or_result, And_result, Y_result, F1_command, ControlBus);                             --Мультиплексор для выбора Результата АЛУ
+	U5: Mux4_1    PORT MAP (CLK, Sub_Sum_result, Or_result, And_result, MuxResult, F1_command, ControlBus);                             --Мультиплексор для выбора Результата АЛУ
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-
---	ToFlags(7)<=Y_result(7); --S flag
---	ToFlags(6)<='0' when Y_result(6 downto 0)="0000000" else '1'; -- Z flag
---	ToFlags(5)<='0'; 
---	ToFlags(4)<='0'; -- !CHANGE LOGIC LATER!
---	ToFlags(3)<='0'; 
---	ToFlags(2)<=not(Y_result(6) and Y_result(5) and Y_result(4) and Y_result(3) and Y_result(2) and Y_result(1) and Y_result(0)); -- P flag
---	ToFlags(1)<='1'; -- 1 ALWAYS
---	ToFlags(0)<=Carry_flag;
+	
+	Y_result<=MuxResult;
+	
+	Z_flag<='0' when (MuxResult(6 downto 0)="0000000") else '1'; 
+	P_flag<=not(MuxResult(6) or MuxResult(5) or MuxResult(4) or MuxResult(3) or MuxResult(2) or MuxResult(1) or MuxResult(0));
+	AC_flag<='0';
+	
+	ToFlags(7)<=MuxResult(7) when (ControlBus(17 downto 17)="1") else 'Z'; --S flag
+	ToFlags(6)<=Z_flag       when (ControlBus(17 downto 17)="1") else 'Z'; --Z flag
+	ToFlags(5)<='0'; 
+	ToFlags(4)<=AC_flag      when (ControlBus(17 downto 17)="1") else 'Z'; --AC flag
+	ToFlags(3)<='0'; 
+	ToFlags(2)<= P_flag      when (ControlBus(17 downto 17)="1") else 'Z'; --P flag
+	ToFlags(1)<='1'; 
+	ToFlags(0)<=Carry_flag   when (ControlBus(17 downto 17)="1") else 'Z'; --C flag
 	
 END MAIN;
