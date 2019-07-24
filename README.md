@@ -28,22 +28,22 @@ Commands and functional blocks status:
 	
 4)Arithmetic commands:
 
-	ADD: NOT READY;
-	ADC: NOT READY;
+	ADD: READY;
+	ADC: READY;
 	ADI: NOT READY;
 	ACI: NOT READY;
 	DAD: NOT READY;	
-	SUB: NOT READY;
-	SBB: NOT READY;
+	SUB: READY;
+	SBB: READY;
 	SUI: NOT READY;
 	SBI: NOT READY;
 	
 5)Logic commands:
 
-	ANA: NOT READY;
+	ANA: READY;
 	XRA: NOT READY;
-	ORA: NOT READY;
-	CMP: NOT READY;
+	ORA: READY;
+	CMP: READY;
 	ANI: NOT READY;
 	XRI: NOT READY;
 	ORI: NOT READY;
@@ -95,4 +95,4 @@ Commands and functional blocks status:
 
 14)Decimal Adjust Block: NOT READY;
 
-15)Common Registers: NOT READY;
+15)Common Registers: READY;
