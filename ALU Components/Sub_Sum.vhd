@@ -25,7 +25,10 @@ signal subWithCarry: STD_LOGIC_VECTOR(8 DOWNTO 0);
 ----------------------------------
 BEGIN
 	
-	withCarry<=("0" & A_operand) + ("0" & B_operand) + F2_command + FromFlags(0);
+	summWithCarry<=("0" & A_operand) + ("0" & B_operand) + F2_command + FromFlags(0);
+	subWithCarry<=("0" & A_operand) + ("0" & B_operand) + F2_command - FromFlags(0);
+	
+	withCarry<=summWithCarry when (F1_command="00000010") else subWithCarry;
 	withoutCarry<=("0" & A_operand) + ("0" & B_operand) + F2_command;
 	
 	result<= withCarry when (F1_command="00000010" or F1_command="00000011") else withoutCarry;
