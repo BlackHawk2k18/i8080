@@ -36,5 +36,4 @@ BEGIN
 			end case;
 		END IF;
 	END PROCESS;
-	
 END MAIN;										

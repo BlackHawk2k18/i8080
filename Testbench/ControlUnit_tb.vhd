@@ -160,7 +160,7 @@ BEGIN
 		InternalDataBus<="00000010";
 		ControlBus(1 downto 0)<="00"; wait for 20 ns;
 		ControlBus(1 downto 0)<="ZZ"; 
-		InternalDataBus<="10000110"; --КОП Сложение
+		InternalDataBus<="10010110"; --КОП "Сравнение"
 		ControlBus(16 downto 16)<="0"; wait for 20 ns; 	
 		ControlBus(16 downto 16)<="Z"; wait for 20 ns;
 		InternalDataBus<=(others => 'Z');

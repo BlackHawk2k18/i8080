@@ -307,53 +307,57 @@ PORT(
 );
 END COMPONENT SBB;
 ---------------------------------------------------------
---COMPONENT ANA
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT ANA;
+COMPONENT ANA
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT ANA;
 ---------------------------------------------------------
 --COMPONENT XRA
 --PORT(
 --	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+--	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
 --	CommandReset: OUT STD_LOGIC;
 --	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 --	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 --	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
+--	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+--	Memory_RW: OUT STD_LOGIC
 --);
 --END COMPONENT XRA;
 ---------------------------------------------------------
---COMPONENT ORA
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT ORA;
+COMPONENT ORA
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT ORA;
 ---------------------------------------------------------
---COMPONENT CMP
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
---	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
---	F2_command: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT CMP;
+COMPONENT CMP
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+	F2_command: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT CMP;
 ----------------------------------------------------------------------------------------------------------------
 --COMPONENT RETIF
 --PORT(
@@ -635,23 +639,23 @@ BEGIN
 --	U20: STC PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
 --	U21: CMC PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
 ---------------------------------------------------------00 GROUP-------------------------------------------------------
---
+
 ---------------------------------------------------------01 GROUP-------------------------------------------------------
 --	U22: MOV PORT MAP (CLK, EnableCommand, CommandReset, DDD, SSS, Buff_ControlBus);
 --	U23: HLT PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
 ---------------------------------------------------------01 GROUP-------------------------------------------------------	
---	
+
 -------------------------------------------------------10 GROUP-------------------------------------------------------
 	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
 	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
 	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
 	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
---	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
---	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
---	U30: ORA PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
---	U31: CMP PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
+	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+--	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U30: ORA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U31: CMP PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
 ---------------------------------------------------------10 GROUP-------------------------------------------------------	
---
+
 ---------------------------------------------------------11 GROUP-------------------------------------------------------	
 --	U32: RETIF   PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 --	U33: POP     PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
@@ -679,4 +683,14 @@ BEGIN
 --	U55: CPI     PORT MAP (CLK, EnableCommand, CommandReset, SSS, Buff_F1, Buff_F2, Buff_ControlBus);
 --	U56: RST     PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
+
+	PROCESS(CLK, CommandReset, RESET)
+	BEGIN
+		IF(CommandReset='1' or RESET='1') THEN
+			Counter<=(others => '0');
+		ELSE
+			
+		END IF;	
+	END PROCESS;
+	
 END MAIN;
