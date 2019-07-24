@@ -71,30 +71,36 @@ BEGIN
 					InternalDataBus <= (others => 'Z');
 				END IF;
 				
-				IF ControlBus(1 downto 0)<="10" THEN
-					IF ControlBus(11 downto 8)<="0000" THEN
+				IF ControlBus(1 downto 0)="10" THEN
+					IF ControlBus(11 downto 8)="0000" THEN
 						AddrReg(15 downto 8)<=B;
 						AddrReg(7 downto 0)<=C;
-					ELSIF ControlBus(11 downto 8)<="1010" THEN
+					ELSIF ControlBus(11 downto 8)="1010" THEN
 						AddrReg(15 downto 8)<=D;
 						AddrReg(7 downto 0)<=E;
-					ELSIF ControlBus(15 downto 12)<="0000" THEN
+					ELSIF ControlBus(15 downto 12)="0000" THEN
 						AddrReg(15 downto 8)<=H;
 						AddrReg(7 downto 0)<=L;
 					ELSIF ControlBus(7 downto 6)="10" THEN
 						AddrReg<=InstructionsCounter;
+					ELSIF ControlBus(7 downto 6)="00" THEN
+						IF(InstructionsCounter)="1111111111111111" THEN
+							InstructionsCounter<=(others=>'0');
+						ELSE
+							InstructionsCounter<=InstructionsCounter+1;
+						END IF;
 					ELSE
 						AddrReg <= (others => 'Z');
 					END IF;
 					ToAdressBus<=AddrReg;
-				ELSIF ControlBus(1 downto 0)<="11" THEN
-					IF ControlBus(11 downto 8)<="0000" THEN
+				ELSIF ControlBus(1 downto 0)="11" THEN
+					IF ControlBus(11 downto 8)="0000" THEN
 						StackPointer(15 downto 8)<=B;
 						StackPointer(7 downto 0)<=C;
-					ELSIF ControlBus(11 downto 8)<="1010" THEN
+					ELSIF ControlBus(11 downto 8)="1010" THEN
 						StackPointer(15 downto 8)<=D;
 						StackPointer(7 downto 0)<=E;
-					ELSIF ControlBus(15 downto 12)<="0000" THEN
+					ELSIF ControlBus(15 downto 12)="0000" THEN
 						StackPointer(15 downto 8)<=H;
 						StackPointer(7 downto 0)<=L;
 					ELSE
@@ -103,14 +109,6 @@ BEGIN
 					ToAdressBus<=StackPointer;
 				ELSE
 					ToAdressBus <= (others => 'Z');
-				END IF;
-				
-				IF ControlBus(7 downto 6)="00" THEN
-					IF(InstructionsCounter)="1111111111111111" THEN
-						InstructionsCounter<=(others=>'0');
-					ELSE
-						InstructionsCounter<=InstructionsCounter+1;
-					END IF;
 				END IF;
 			END IF;
 		END IF;	

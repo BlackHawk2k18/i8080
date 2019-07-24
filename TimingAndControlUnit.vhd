@@ -686,11 +686,86 @@ BEGIN
 
 	PROCESS(CLK, CommandReset, RESET)
 	BEGIN
-		IF(CommandReset='1' or RESET='1') THEN
-			Counter<=(others => '0');
-		ELSE
-			
+		IF(rising_edge(CLK)) THEN
+			IF(CommandReset='1' or RESET='1') THEN
+				Counter<=(others => '0');
+				ControlBus<= (others => 'Z');
+				Memory_RW<='Z';
+			ELSE
+				IF (Counter="00000000") THEN
+					ControlBus(1 downto 0)<="10";  --Allow signal for InstructionsCounter
+					ControlBus(7 downto 6)<="10";  --AddrReg<=InstructionsCounter
+					Counter<=Counter+1;
+				ELSIF(Counter="00000001") THEN
+					ControlBus(16 downto 16)<="0"; --InstrReg <= InternalDataBus
+					Memory_RW<='Z';                --Read from Memory
+					Counter<=Counter+1;
+				ELSE
+					Counter<=(others => '0');
+					ControlBus<= (others => 'Z');
+					Memory_RW<='1';                --Read from Memory
+				END IF;		
+			END IF;
 		END IF;	
 	END PROCESS;
-	
+
 END MAIN;
+
+
+--	PROCESS(CLK, CommandReset, RESET)
+--	BEGIN
+--		IF(rising_edge(CLK)) THEN
+--			IF(CommandReset='1' or RESET='1') THEN
+--				Counter<=(others => '0');
+--				ControlBus<= (others => 'Z');
+--				Memory_RW<='Z';
+--			ELSE
+--				IF (Counter="00000000") THEN
+--					ControlBus(1 downto 0)<="10";  --Allow signal for InstructionsCounter
+--					ControlBus(7 downto 6)<="10";  --AddrReg<=InstructionsCounter
+--					Counter<=Counter+1;
+--				ELSIF(Counter="00000001") THEN
+--					ControlBus(16 downto 16)<="0"; --InstrReg <= InternalDataBus
+--					Memory_RW<='Z';                --Read from Memory
+--					Counter<=Counter+1;
+--				ELSIF(Counter="000000101") THEN
+--					ControlBus(7 downto 6)<="00";  --InstructionsCounter<=InstructionsCounter+1
+--				ELSE
+--					Counter<=(others => '0');
+--					ControlBus<= (others => 'Z');
+--					Memory_RW<='1';                --Read from Memory
+--				END IF;		
+--			END IF;
+--		END IF;	
+--	END PROCESS;
+
+
+
+
+
+--	PROCESS(CLK, CommandReset, RESET)
+--	BEGIN
+--		IF(rising_edge(CLK)) THEN
+--			IF(CommandReset='1' or RESET='1') THEN
+--				Counter<=(others => '0');
+--				ControlBus<= (others => 'Z');
+--				Memory_RW<='Z';
+--			ELSE
+--				Counter<=Counter+1;
+--				IF (Counter="00000000") THEN
+--					ControlBus(1 downto 0)<="10";  --Allow signal for InstructionsCounter
+--					ControlBus(7 downto 6)<="10";  --AddrReg<=InstructionsCounter
+--					ControlBus(16 downto 16)<="0"; --InstrReg <= InternalDataBus
+--				ELSIF(Counter="00000001") THEN
+--					Memory_RW<='Z';                --Read from Memory
+--				ELSIF(Counter="00000010") THEN
+--					ControlBus(16 downto 16)<="Z"; --ToDecoder <= InstrReg; 
+--					ControlBus(7 downto 6)<="00";  --InstructionsCounter<=InstructionsCounter+1
+--				ELSE
+--					Counter<=(others => '0');
+--					ControlBus<= (others => 'Z');
+--					Memory_RW<='Z';                --Read from Memory
+--				END IF;		
+--			END IF;
+--		END IF;	
+--	END PROCESS;

@@ -16,7 +16,7 @@ ARCHITECTURE MAIN OF RAM IS
 -------------------------------------------------------
 type Memory is array (65535 downto 0) of std_logic_vector (7 downto 0);
 signal MemoryCell: Memory:=(
-   0 => "00000001",	
+   0 => "10000000",	
    1 => "00000010",	
    2 => "00000011",	
    3 => "00000100", 

@@ -26,6 +26,7 @@ BEGIN
 			case EnableCommand(7 downto 3) is
 				when "10111" =>
 					Counter<=Counter+1;
+					CommandReset<='1';
 					case Counter is
 						when "00000000" =>
 							case SSS is
@@ -64,7 +65,7 @@ BEGIN
 							ControlBus<=(others => 'Z');
 							F1_command<=(others => 'Z');
 							F2_command<='Z';
-							CommandReset<='1';
+							CommandReset<='Z';
 							Counter<=(others => '0');
 							Memory_RW<='Z';
 					end case;
@@ -72,7 +73,7 @@ BEGIN
 					ControlBus<=(others => 'Z');
 					F1_command<=(others => 'Z');
 					F2_command<='Z';
-					CommandReset<='1';
+					CommandReset<='Z';
 					Counter<=(others => '0');
 					Memory_RW<='Z';
 			end case;
