@@ -14,6 +14,11 @@ PORT(
 END InstructionCounter;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF InstructionCounter IS
+signal InstrCounterReg: STD_LOGIC_VECTOR(15 DOWNTO 0);
 BEGIN
-	ToAdressBus<=(others =>'Z');
+	
+	InstrCounterReg<=InstrCounterReg+1 when (ControlBus="110" and Selector='1') else InstrCounterReg;
+	
+	ToAdressBus<=InstrCounterReg when (ControlBus="111" and Selector='1') else (others =>'Z');
+	
 END MAIN;

@@ -16,11 +16,12 @@ ARCHITECTURE MAIN OF Mux6_1 IS
 --------------------------------------------
 BEGIN
 
-	Selector(5)<='1' when ControlBus="101" else '0';
-	Selector(4)<='1' when ControlBus="100" else '0';
-	Selector(3)<='1' when ControlBus="011" else '0';
-	Selector(2)<='1' when ControlBus="010" else '0';
-	Selector(1)<='1' when ControlBus="001" else '0';
-	Selector(0)<='1' when ControlBus="000" else '0';
-	
+	Selector<="100000" when ControlBus="101" else 
+				 "010000" when ControlBus="100" else
+				 "001000" when ControlBus="011" else
+				 "000100" when ControlBus="010" else
+				 "000010" when ControlBus="001" else
+				 "000001" when ControlBus="000" else 
+				 "ZZZZZZ";
+				 
 END MAIN;

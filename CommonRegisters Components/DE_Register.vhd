@@ -16,8 +16,19 @@ PORT(
 END DE_Register;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF DE_Register IS
+signal D, E: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
-	InternalDataBus<=(others =>'Z');
-	ToAdressBus<=(others =>'Z');
-	ToStack<=(others =>'Z');
+
+	D<=InternalDataBus when (ControlBus="000" and Selector'EVENT and Selector='1') else D;
+	E<=InternalDataBus when (ControlBus="010" and Selector='1') else E;
+	
+	ToStack(15 downto 8)<=D when (ControlBus="101" and Selector='1') else (others =>'Z');
+	ToStack(7 downto 0)<=E when (ControlBus="101" and Selector='1') else (others =>'Z');
+	
+	ToAdressBus(15 downto 8)<=D when (ControlBus="100" and Selector='1') else (others =>'Z');
+	ToAdressBus(7 downto 0)<=E when (ControlBus="100" and Selector='1') else (others =>'Z');
+	
+	InternalDataBus<=D when (ControlBus="001" and Selector='1') else 
+						  E when (ControlBus="011" and Selector='1') else (others =>'Z');
+		
 END MAIN;
