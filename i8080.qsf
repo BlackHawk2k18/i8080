@@ -178,4 +178,11 @@ set_global_assignment -name VHDL_FILE Commands/11/PCHL.vhd
 set_global_assignment -name VHDL_FILE Commands/11/RET.vhd
 set_global_assignment -name VHDL_FILE RAM.vhd
 set_global_assignment -name VHDL_FILE Testbench/CommonRegisters_tb.vhd
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/WZ_Register.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/BC_Register.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/DE_Register.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/HL_Register.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/StackPointer.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/InstructionCounter.vhd"
+set_global_assignment -name VHDL_FILE "CommonRegisters Components/Mux6_1.vhd"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

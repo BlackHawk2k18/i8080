@@ -22,7 +22,6 @@ BEGIN
 	SSS <= FromInstructionRegister(2 downto 0);
 	EnableCommand<=FromInstructionRegister;
 
-	
 END MAIN;
 
 --	PROCESS(CLK, DecoderReg, RESET, FromInstructionRegister, ControlBus)
