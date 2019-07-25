@@ -8,7 +8,7 @@ PORT(
 	RESET: IN STD_LOGIC;
    InternalDataBus: IN STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	BufferOutput: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END BufferRegister;
 -------------------------------------------------------
@@ -22,9 +22,9 @@ BEGIN
 			IF(RESET='1') THEN
 				RegBuff<="00000000";
 			ELSE
-				case ControlBus(3 downto 2) IS
-					when "00" => RegBuff <= InternalDataBus;
-					when "11" => BufferOutput <= RegBuff;
+				case ControlBus IS
+					when '0' => RegBuff <= InternalDataBus;
+					when '1' => BufferOutput <= RegBuff;
 					when others => BufferOutput<="ZZZZZZZZ"; 
 				end case;
 			END IF;

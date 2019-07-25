@@ -14,7 +14,7 @@ ARCHITECTURE MAIN OF i8080 IS
 ----------------------------------
 signal InternalDataBus: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal AccumulatorOutput: STD_LOGIC_VECTOR(7 DOWNTO 0);
-signal ControlBus: STD_LOGIC_VECTOR(17 DOWNTO 0);
+signal ControlBus: STD_LOGIC_VECTOR(22 DOWNTO 0);
 signal LatchOutput: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal BufferOutput: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToALUFromFlags: STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -30,8 +30,6 @@ signal AdressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal EnableCommand: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal DDD: STD_LOGIC_VECTOR(2 DOWNTO 0);
 signal SSS: STD_LOGIC_VECTOR(2 DOWNTO 0);
-signal Memory_RW: STD_LOGIC;
-signal Device_RW: STD_LOGIC;
 ----------------------------------
 COMPONENT ALU
 PORT(
@@ -46,7 +44,7 @@ PORT(
 	FromDecimalAdjust: IN STD_LOGIC_VECTOR(7 DOWNTO 0);		
 	F1_command: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: IN STD_LOGIC;
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR(2 DOWNTO 0)
 );
 END COMPONENT ALU;
 ----------------------------------
@@ -56,7 +54,7 @@ PORT(
 	RESET: IN STD_LOGIC;
    InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	AccumulatorOutput: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT Accumulator;
 ----------------------------------
@@ -66,7 +64,7 @@ PORT(
 	RESET: IN STD_LOGIC;
    FromAccumulator: IN STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	LatchOutput: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT AccumulatorLatch;
 ----------------------------------
@@ -76,7 +74,7 @@ PORT(
 	RESET: IN STD_LOGIC;
    InternalDataBus: IN STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	BufferOutput: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT BufferRegister;
 ----------------------------------
@@ -87,7 +85,7 @@ PORT(
    InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	ToALUFromFlags: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 	FromALUtoFlags: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
 );
 END COMPONENT FlagFlipFlops;
 ----------------------------------
@@ -97,7 +95,7 @@ PORT(
 	RESET: IN STD_LOGIC;
 	ToALUFromDA: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 	FromALUToDA: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
 );
 END COMPONENT DecimalAdjust;
 ----------------------------------
@@ -107,7 +105,7 @@ PORT(
 	RESET: IN STD_LOGIC;
 	InternalDataBus: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
 	ToDecoder: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT InstructionRegister;
 ----------------------------------
@@ -119,7 +117,7 @@ PORT(
 	EnableCommand: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	DDD: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SSS: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT InstructionDecoder;
 ----------------------------------
@@ -133,9 +131,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC;
-	Device_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT TimingAndControlUnit;
 ----------------------------------
@@ -144,8 +140,8 @@ PORT(
 	CLK: IN STD_LOGIC;
 	RESET: IN STD_LOGIC;
 	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ToAdressBus: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ToAdressBus: OUT STD_LOGIC_VECTOR (15 DOWNTO 0); 
+	ControlBus: IN STD_LOGIC_VECTOR(5 DOWNTO 0)
 );
 END COMPONENT CommonRegisters;
 ----------------------------------
@@ -154,23 +150,23 @@ PORT(
 	CLK: IN STD_LOGIC;
 	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 	FromAdressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
-	Memory_RW: IN STD_LOGIC
+	ControlBus: IN STD_LOGIC
 );
 END COMPONENT RAM;
 ----------------------------------
 BEGIN
 
-	U0: ALU PORT MAP (CLK, RESET, LatchOutput, BufferOutput, InternalDataBus, FromALUtoFlags, ToALUFromFlags, FromALUToDA, ToALUFromDA, F1_command, F2_command, ControlBus);
-	U1: Accumulator PORT MAP (CLK, RESET, InternalDataBus, AccumulatorOutput, ControlBus);
-	U2: AccumulatorLatch PORT MAP (CLK, RESET, AccumulatorOutput, LatchOutput, ControlBus);
-	U3: BufferRegister PORT MAP (CLK, RESET, InternalDataBus, BufferOutput, ControlBus);
-	U4: FlagFlipFlops PORT MAP (CLK, RESET, InternalDataBus, ToALUFromFlags, FromALUtoFlags, ControlBus);
-	U5: DecimalAdjust PORT MAP (CLK, RESET, ToALUFromDA, FromALUToDA, ControlBus);
-	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus);
-	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus);
-	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus, Memory_RW, Device_RW);
-	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, AdressBus, ControlBus);
-	U10: RAM PORT MAP (CLK, InternalDataBus, AdressBus, Memory_RW);
+	U0: ALU PORT MAP (CLK, RESET, LatchOutput, BufferOutput, InternalDataBus, FromALUtoFlags, ToALUFromFlags, FromALUToDA, ToALUFromDA, F1_command, F2_command, ControlBus(22 downto 20));
+	U1: Accumulator PORT MAP (CLK, RESET, InternalDataBus, AccumulatorOutput, ControlBus(0));
+	U2: AccumulatorLatch PORT MAP (CLK, RESET, AccumulatorOutput, LatchOutput, ControlBus(1));
+	U3: BufferRegister PORT MAP (CLK, RESET, InternalDataBus, BufferOutput, ControlBus(3));
+	U4: FlagFlipFlops PORT MAP (CLK, RESET, InternalDataBus, ToALUFromFlags, FromALUtoFlags, ControlBus(9 downto 8));
+	U5: DecimalAdjust PORT MAP (CLK, RESET, ToALUFromDA, FromALUToDA, ControlBus(11 downto 10));
+	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus(3));
+	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus(4));
+	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
+	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, AdressBus, ControlBus(19 downto 14));
+	U10: RAM PORT MAP (CLK, InternalDataBus, AdressBus, ControlBus(5));
 	
 	LED<=AccumulatorOutput;
 	

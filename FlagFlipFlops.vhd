@@ -9,7 +9,7 @@ PORT(
    InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	ToALUFromFlags: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 	FromALUtoFlags: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
 );
 END FlagFlipFlops;
 -------------------------------------------------------
@@ -24,9 +24,9 @@ BEGIN
 					FlipFlopReg<="00000010";
 					InternalDataBus<="ZZZZZZZZ";
 				ELSE
-					case ControlBus(5 downto 4) IS
-						when "00" => InternalDataBus <= FlipFlopReg;
-						when "01" => FlipFlopReg <= InternalDataBus;
+					case ControlBus IS
+						when "00" => FlipFlopReg <= InternalDataBus;
+						when "01" => InternalDataBus <= FlipFlopReg;
 						when "10" => FlipFlopReg <= FromALUtoFlags;
 						when "11" => ToALUFromFlags <= FlipFlopReg;
 						when others => InternalDataBus<="ZZZZZZZZ";

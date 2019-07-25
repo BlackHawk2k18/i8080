@@ -8,7 +8,7 @@ PORT(
 	RESET: IN STD_LOGIC;
 	ToALUFromDA: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
 	FromALUToDA: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
 );
 END DecimalAdjust;
 -------------------------------------------------------

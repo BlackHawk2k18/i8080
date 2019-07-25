@@ -13,9 +13,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC;
-	Device_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END TimingAndControlUnit;
 -------------------------------------------------------
@@ -23,9 +21,6 @@ ARCHITECTURE MAIN OF TimingAndControlUnit IS
 -------------------------------------------------------
 signal Counter: STD_LOGIC_VECTOR (7 DOWNTO 0);
 signal CommandReset: STD_LOGIC;
-signal Buff_F1: STD_LOGIC_VECTOR (7 DOWNTO 0);
-signal Buff_F2: STD_LOGIC;
-signal Buff_ControlBus: STD_LOGIC_VECTOR (17 DOWNTO 0);
 -------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
 --COMPONENT NOP
@@ -104,14 +99,15 @@ signal Buff_ControlBus: STD_LOGIC_VECTOR (17 DOWNTO 0);
 --);
 --END COMPONENT STA;
 ---------------------------------------------------------
---COMPONENT LDA
---PORT(
---	CLK: IN STD_LOGIC;
---	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
---	CommandReset: OUT STD_LOGIC;
---	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0)
---);
---END COMPONENT LDA;
+COMPONENT LDA
+PORT(
+	CLK: IN STD_LOGIC;
+	EnableCommand: IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
+	CommandReset: OUT STD_LOGIC;
+	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
+	Memory_RW: OUT STD_LOGIC
+);
+END COMPONENT LDA;
 ---------------------------------------------------------
 --COMPONENT DCX
 --PORT(
@@ -263,8 +259,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT ADD;
 ---------------------------------------------------------
@@ -276,8 +271,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT ADC;
 ---------------------------------------------------------
@@ -289,8 +283,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT SUB;
 ---------------------------------------------------------
@@ -302,8 +295,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT SBB;
 ---------------------------------------------------------
@@ -315,8 +307,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT ANA;
 ---------------------------------------------------------
@@ -341,8 +332,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT ORA;
 ---------------------------------------------------------
@@ -354,8 +344,7 @@ PORT(
 	SSS: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 	F1_command: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: OUT STD_LOGIC;
-	ControlBus: OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
-	Memory_RW: OUT STD_LOGIC
+	ControlBus: OUT STD_LOGIC_VECTOR(22 DOWNTO 0)
 );
 END COMPONENT CMP;
 ----------------------------------------------------------------------------------------------------------------
@@ -624,7 +613,7 @@ BEGIN
 --	U5: SHLD PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
 --	U6: LHLD PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
 --	U7: STA  PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
---	U8: LDA  PORT MAP (CLK, EnableCommand, CommandReset, Buff_ControlBus);
+--	U8: LDA  PORT MAP (CLK, EnableCommand, CommandReset, ControlBus, Memory_RW);
 --	U9: DCX  PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 --	U10: INX PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);	
 --	U11: INR PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
@@ -646,14 +635,14 @@ BEGIN
 ---------------------------------------------------------01 GROUP-------------------------------------------------------	
 
 -------------------------------------------------------10 GROUP-------------------------------------------------------
-	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
---	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U30: ORA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
-	U31: CMP PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus, Memory_RW);
+	U24: ADD PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U25: ADC PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U26: SUB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U27: SBB PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U28: ANA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+--	U29: XRA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U30: ORA PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
+	U31: CMP PORT MAP (CLK, EnableCommand, CommandReset, SSS, F1_command, F2_command, ControlBus);
 ---------------------------------------------------------10 GROUP-------------------------------------------------------	
 
 ---------------------------------------------------------11 GROUP-------------------------------------------------------	
@@ -684,30 +673,30 @@ BEGIN
 --	U56: RST     PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
 
-	PROCESS(CLK, CommandReset, RESET)
-	BEGIN
-		IF(rising_edge(CLK)) THEN
-			IF(CommandReset='1' or RESET='1') THEN
-				Counter<=(others => '0');
-				ControlBus<= (others => 'Z');
-				Memory_RW<='Z';
-			ELSE
-				IF (Counter="00000000") THEN
-					ControlBus(1 downto 0)<="10";  --Allow signal for InstructionsCounter
-					ControlBus(7 downto 6)<="10";  --AddrReg<=InstructionsCounter
-					Counter<=Counter+1;
-				ELSIF(Counter="00000001") THEN
-					ControlBus(16 downto 16)<="0"; --InstrReg <= InternalDataBus
-					Memory_RW<='Z';                --Read from Memory
-					Counter<=Counter+1;
-				ELSE
-					Counter<=(others => '0');
-					ControlBus<= (others => 'Z');
-					Memory_RW<='1';                --Read from Memory
-				END IF;		
-			END IF;
-		END IF;	
-	END PROCESS;
+--	PROCESS(CLK, CommandReset, RESET)
+--	BEGIN
+--		IF(rising_edge(CLK)) THEN
+--			IF(CommandReset='1' or RESET='1') THEN
+--				Counter<=(others => '0');
+--				ControlBus<= (others => 'Z');
+--				Memory_RW<='Z';
+--			ELSE
+--				IF (Counter="00000000") THEN
+--					ControlBus(1 downto 0)<="10";  --Allow signal for InstructionsCounter
+--					ControlBus(7 downto 6)<="10";  --AddrReg<=InstructionsCounter
+--					Counter<=Counter+1;
+--				ELSIF(Counter="00000001") THEN
+--					ControlBus(16 downto 16)<="0"; --InstrReg <= InternalDataBus
+--					Memory_RW<='Z';                --Read from Memory
+--					Counter<=Counter+1;
+--				ELSE
+--					Counter<=(others => '0');
+--					ControlBus<= (others => 'Z');
+--					Memory_RW<='1';                --Read from Memory
+--				END IF;		
+--			END IF;
+--		END IF;	
+--	END PROCESS;
 
 END MAIN;
 

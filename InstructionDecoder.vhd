@@ -10,7 +10,7 @@ PORT(
 	EnableCommand: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	DDD: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SSS: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END InstructionDecoder;
 -------------------------------------------------------

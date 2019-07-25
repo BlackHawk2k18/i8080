@@ -15,7 +15,7 @@ PORT(
 	FromDecimalAdjust: IN STD_LOGIC_VECTOR(7 DOWNTO 0);		
 	F1_command: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F2_command: IN STD_LOGIC;
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: In STD_LOGIC_VECTOR(2 DOWNTO 0)
 );
 END ALU;
 -------------------------------------------------------
@@ -85,19 +85,19 @@ PORT(
 	And_r: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
 	Y_Mux4_1: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 	F1_command: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-	ControlBus: IN STD_LOGIC_VECTOR (17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC_VECTOR (2 DOWNTO 0)
 );
 END COMPONENT Mux4_1;
-----------------------------------
+------------------------------------
 BEGIN
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	U0: Sub_Sum   PORT MAP (A_operand, Mux2_1_result, Sub_Sum_result, Carry_flag, FromFlags, F1_command, F2_command);                  --Суммирование и вычитание
 	U1: OR_Gate   PORT MAP (A_operand, Mux2_1_result, Or_result);                                                                      --Логическое сложение
 	U2: And_Gate  PORT MAP (A_operand, Mux2_1_result, And_result);                                                                     --Логическое умножение
 	U3: Not_Gate  PORT MAP (B_operand, Not_result);                                                                                 	  --Инверсия для B-операнда
 	U4: Mux2_1    PORT MAP (CLK, B_operand, Not_result, Mux2_1_result, F2_command);                                              		  --Мультиплексор для выбора значения В-операнда
 	U5: Mux4_1    PORT MAP (CLK, Sub_Sum_result, Or_result, And_result, MuxResult, F1_command, ControlBus);                             --Мультиплексор для выбора Результата АЛУ
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	
 	Y_result<=MuxResult;
 	
@@ -105,13 +105,13 @@ BEGIN
 	P_flag<=not(MuxResult(6) or MuxResult(5) or MuxResult(4) or MuxResult(3) or MuxResult(2) or MuxResult(1) or MuxResult(0));
 	AC_flag<='0';
 	
-	ToFlags(7)<=MuxResult(7) when (ControlBus(17 downto 17)="1") else 'Z'; --S flag
-	ToFlags(6)<=Z_flag       when (ControlBus(17 downto 17)="1") else 'Z'; --Z flag
+	ToFlags(7)<=MuxResult(7) when (ControlBus(2 downto 0)="011") else 'Z'; --S flag
+	ToFlags(6)<=Z_flag       when (ControlBus(2 downto 0)="011") else 'Z'; --Z flag
 	ToFlags(5)<='0'; 
-	ToFlags(4)<=AC_flag      when (ControlBus(17 downto 17)="1") else 'Z'; --AC flag
+	ToFlags(4)<=AC_flag      when (ControlBus(2 downto 0)="011") else 'Z'; --AC flag
 	ToFlags(3)<='0'; 
-	ToFlags(2)<= P_flag      when (ControlBus(17 downto 17)="1") else 'Z'; --P flag
+	ToFlags(2)<= P_flag      when (ControlBus(2 downto 0)="011") else 'Z'; --P flag
 	ToFlags(1)<='1'; 
-	ToFlags(0)<=Carry_flag   when (ControlBus(17 downto 17)="1") else 'Z'; --C flag
+	ToFlags(0)<=Carry_flag   when (ControlBus(2 downto 0)="011") else 'Z'; --C flag
 	
 END MAIN;

@@ -8,7 +8,7 @@ PORT(
 	RESET: IN STD_LOGIC;
    InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);	
 	AccumulatorOutput: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ControlBus: In STD_LOGIC_VECTOR(17 DOWNTO 0)
+	ControlBus: IN STD_LOGIC
 );
 END Accumulator;
 -------------------------------------------------------
@@ -22,9 +22,9 @@ BEGIN
 			IF(RESET='1') THEN
 				RegAcc<="00000000";
 			ELSE
-				IF (ControlBus(1 downto 0)="00") THEN
+				IF (ControlBus='0') THEN
 					RegAcc <= InternalDataBus;
-				ELSIF (ControlBus(1 downto 0)="01") THEN
+				ELSIF (ControlBus='1') THEN
 					InternalDataBus <= RegAcc;
 				ELSE
 					InternalDataBus <= "ZZZZZZZZ";
