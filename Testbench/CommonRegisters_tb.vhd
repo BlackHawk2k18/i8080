@@ -35,9 +35,10 @@ BEGIN
 		RESET<='1'; wait for 10 ns;
 		RESET<='0'; wait for 20 ns;
 		
+		ControlBus(5 downto 0)<="110101"; wait for 20 ns; --Increment counter
 		InternalDataBus<="00000001";         
 		ControlBus(5 downto 0)<="000000"; wait for 20 ns; --WRITE TO W
-		InternalDataBus<="00000010";      
+		InternalDataBus<="00000010";     
 		ControlBus(5 downto 0)<="010000"; wait for 20 ns; --WRITE TO Z	
 		InternalDataBus<="00000011";      
 		ControlBus(5 downto 0)<="000001"; wait for 20 ns; --WRITE TO B
@@ -51,12 +52,10 @@ BEGIN
 		ControlBus(5 downto 0)<="000011"; wait for 20 ns; --WRITE TO H
 		InternalDataBus<="00001001";     
 		ControlBus(5 downto 0)<="010011"; wait for 20 ns; --WRITE TO L
---		InternalDataBus<="00001010";    
---		ControlBus(5 downto 0)<="100000"; wait for 20 ns; --WRITE TO Stack_L 
---		InternalDataBus<="00001011";      
---		ControlBus(5 downto 0)<="100010"; wait for 20 ns; --WRITE TO Stack_H  		
---		ControlBus<=(others => 'Z');
---		ControlBus(5 downto 0)<="101110"; wait for 20 ns; --Increment counter
+		InternalDataBus<="00001010";    
+		ControlBus(5 downto 0)<="000100"; wait for 20 ns; --WRITE TO Stack_L 
+		InternalDataBus<="00001011";      
+		ControlBus(5 downto 0)<="010100"; wait for 20 ns; --WRITE TO Stack_H  		
 		InternalDataBus<=(others => 'Z');
 		ControlBus<=(others => 'Z');
 		wait;
