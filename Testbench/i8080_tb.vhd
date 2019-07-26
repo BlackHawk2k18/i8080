@@ -161,12 +161,12 @@ BEGIN
 --		EnableCommand<="10000000"; 
 --		SSS<="000";                wait for 80 ns;
 --		
---		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		EnableCommand<="ZZZZZZZZ"; wait for 60 ns;
 --		
 --		EnableCommand<="10001000";
 --		SSS<="000";                wait for 80 ns;
 --		
---		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		EnableCommand<="ZZZZZZZZ"; wait for 60 ns;
 --		SSS<="ZZZ";
 --		
 --		EnableCommand<="10010111";
