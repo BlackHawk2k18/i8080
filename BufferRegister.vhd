@@ -16,19 +16,25 @@ ARCHITECTURE MAIN OF BufferRegister IS
 signal RegBuff: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	PROCESS(CLK, RegBuff, RESET, InternalDataBus, ControlBus)
-	BEGIN
-		IF (rising_edge(CLK)) THEN
-			IF(RESET='1') THEN
-				RegBuff<="00000000";
-			ELSE
-				case ControlBus IS
-					when '0' => RegBuff <= InternalDataBus;
-					when '1' => BufferOutput <= RegBuff;
-					when others => BufferOutput<="ZZZZZZZZ"; 
-				end case;
-			END IF;
-		END IF;
-	END PROCESS;
+	RegBuff<=(others=>'0') when RESET='1' else
+				InternalDataBus when (ControlBus='0') else
+				RegBuff;
+	BufferOutput<=RegBuff when (ControlBus='1') else (others=>'Z');
 
 END MAIN;
+
+
+--	PROCESS(CLK, RegBuff, RESET, InternalDataBus, ControlBus)
+--	BEGIN
+--		IF (rising_edge(CLK)) THEN
+--			IF(RESET='1') THEN
+--				RegBuff<="00000000";
+--			ELSE
+--				case ControlBus IS
+--					when '0' => RegBuff <= InternalDataBus;
+--					when '1' => BufferOutput <= RegBuff;
+--					when others => BufferOutput<="ZZZZZZZZ"; 
+--				end case;
+--			END IF;
+--		END IF;
+--	END PROCESS;

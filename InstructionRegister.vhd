@@ -16,19 +16,8 @@ ARCHITECTURE MAIN OF InstructionRegister IS
 signal InstrReg: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	PROCESS(CLK, InstrReg, RESET, InternalDataBus, ControlBus)
-	BEGIN
-		IF (rising_edge(CLK)) THEN
-			IF(RESET='1') THEN
-				InstrReg<= (others => 'Z');
-			ELSE
-				case ControlBus IS
-					when '0' => InstrReg <= InternalDataBus;
-					when '1' => ToDecoder <= InstrReg;
-					when others => ToDecoder <= (others =>'Z');
-				end case;
-			END IF;
-		END IF;
-	END PROCESS;
+	InstrReg<=(others => '0') when RESET='1' else
+				 InternalDataBus when (ControlBus='0') else InstrReg;
+	ToDecoder<=InstrReg when (ControlBus='1') else (others =>'Z');
 
 END MAIN;

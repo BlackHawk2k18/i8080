@@ -18,8 +18,10 @@ ARCHITECTURE MAIN OF WZ_Register IS
 signal W, Z: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	W<=InternalDataBus when (ControlBus="000000") else W;
-	Z<=InternalDataBus when (ControlBus="010000") else Z;
+	W<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="000000") else W;
+	Z<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="010000") else Z;
 	
 	ToStack(15 downto 8)<=W when (ControlBus="101000") else (others =>'Z');
 	ToStack(7 downto 0)<=Z when (ControlBus="101000") else (others =>'Z');

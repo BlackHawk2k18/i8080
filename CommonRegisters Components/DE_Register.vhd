@@ -18,8 +18,10 @@ ARCHITECTURE MAIN OF DE_Register IS
 signal D, E: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	D<=InternalDataBus when (ControlBus="000010") else D;
-	E<=InternalDataBus when (ControlBus="010010") else E;
+	D<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="000010") else D;
+	E<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="010010") else E;
 	
 	ToStack(15 downto 8)<=D when (ControlBus="101010") else (others =>'Z');
 	ToStack(7 downto 0)<=E when (ControlBus="101010") else (others =>'Z');

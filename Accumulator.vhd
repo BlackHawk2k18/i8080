@@ -16,23 +16,30 @@ ARCHITECTURE MAIN OF Accumulator IS
 signal RegAcc: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	PROCESS(CLK, RegAcc, RESET, ControlBus)
-	BEGIN
-		IF (rising_edge(CLK)) THEN
-			IF(RESET='1') THEN
-				RegAcc<="00000000";
-			ELSE
-				IF (ControlBus='0') THEN
-					RegAcc <= InternalDataBus;
-				ELSIF (ControlBus='1') THEN
-					InternalDataBus <= RegAcc;
-				ELSE
-					InternalDataBus <= "ZZZZZZZZ";
-				END IF;
-			END IF;
-		END IF;
-	END PROCESS;
+	RegAcc<=(others=>'0') when RESET='1' else
+			  InternalDataBus when (ControlBus='0') else
+			  RegAcc;
+	InternalDataBus<=RegAcc when (ControlBus='1') else (others=>'Z');
+				
+
 	
 	AccumulatorOutput<=RegAcc;	
 	
 END MAIN;
+--
+--	PROCESS(CLK, RegAcc, RESET, ControlBus)
+--	BEGIN
+--		IF (rising_edge(CLK)) THEN
+--			IF(RESET='1') THEN
+--				RegAcc<="00000000";
+--			ELSE
+--				IF (ControlBus='0') THEN
+--					RegAcc <= InternalDataBus;
+--				ELSIF (ControlBus='1') THEN
+--					InternalDataBus <= RegAcc;
+--				ELSE
+--					InternalDataBus <= "ZZZZZZZZ";
+--				END IF;
+--			END IF;
+--		END IF;
+--	END PROCESS;

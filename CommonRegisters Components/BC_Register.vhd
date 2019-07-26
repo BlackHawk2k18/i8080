@@ -18,8 +18,10 @@ ARCHITECTURE MAIN OF BC_Register IS
 signal B, C: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	B<=InternalDataBus when (ControlBus="000001") else B;
-	C<=InternalDataBus when (ControlBus="010001") else C;
+	B<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="000001") else B;
+	C<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="010001") else C;
 	
 	ToStack(15 downto 8)<=B when (ControlBus="101001") else (others =>'Z');
 	ToStack(7 downto 0)<=C when (ControlBus="101001") else (others =>'Z');

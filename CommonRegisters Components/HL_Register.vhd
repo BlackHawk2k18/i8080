@@ -18,8 +18,10 @@ ARCHITECTURE MAIN OF HL_Register IS
 signal H, L: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	H<=InternalDataBus when (ControlBus="000011") else H;
-	L<=InternalDataBus when (ControlBus="010011") else L;
+	H<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="000011") else H;
+	L<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="010011") else L;
 	
 	ToStack(15 downto 8)<=H when (ControlBus="101011") else (others =>'Z');
 	ToStack(7 downto 0)<=L when (ControlBus="101011") else (others =>'Z');

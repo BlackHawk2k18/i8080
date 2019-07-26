@@ -27,15 +27,18 @@ BEGIN
 			case ControlBus(2 downto 0) IS
 				when "001" =>
 					IF(F1_command="00000100") THEN
-						Y_Mux4_1 <= Or_r;
+						MuxReg <= Or_r;
 					ELSIF(F1_command="00000101") THEN
-						Y_Mux4_1 <= And_r;
+						MuxReg <= And_r;
 					ELSE
-						Y_Mux4_1 <= Summ;
+						MuxReg <= Summ;
 					END IF;
-				when others => Y_Mux4_1 <= "ZZZZZZZZ";
+				when others => MuxReg <= "ZZZZZZZZ";
 			end case;
 		END IF;
+
 	END PROCESS;
 	
+		Y_Mux4_1<=MuxReg;	
+		
 END MAIN;										

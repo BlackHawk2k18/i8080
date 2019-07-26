@@ -18,8 +18,10 @@ ARCHITECTURE MAIN OF StackPointer IS
 signal Stack_L, Stack_H: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 				
-	Stack_L<=InternalDataBus when (ControlBus="000100") else Stack_L;
-	Stack_H<=InternalDataBus when (ControlBus="010100") else Stack_H;
+	Stack_L<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="000100") else Stack_L;
+	Stack_H<=(others=>'0') when RESET='1' else
+		InternalDataBus when (ControlBus="010100") else Stack_H;
 	
 	ToAddressBus(15 downto 8)<=Stack_H when (ControlBus="100100") else (others =>'Z');
 	ToAddressBus(7 downto 0)<=Stack_L when (ControlBus="100100") else (others =>'Z');

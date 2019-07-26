@@ -6,6 +6,7 @@ ENTITY Testbench IS
 END;
 -------------------------------------------------------
 ARCHITECTURE MAIN OF Testbench IS
+----------------------------------
 signal CLK: STD_LOGIC;
 signal RESET: STD_LOGIC;
 signal InternalDataBus: STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -123,7 +124,7 @@ COMPONENT RAM
 PORT(
 	CLK: IN STD_LOGIC;
 	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	FromAdressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+	FromAddressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
 	ControlBus: IN STD_LOGIC
 );
 END COMPONENT RAM;
@@ -148,16 +149,48 @@ BEGIN
 		EnableCommand<=(others => 'Z');
 		DDD<=(others => 'Z');
 		SSS<=(others => 'Z');
+		ToALUFromFlags<="00000001";
 		
 		RESET<='0'; wait for 10 ns;
 		RESET<='1'; wait for 10 ns;
 		RESET<='0'; wait for 20 ns;
+
+--		EnableCommand<="00111010"; wait for 60 ns;
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		
+--		EnableCommand<="10000000"; 
+--		SSS<="000";                wait for 80 ns;
+--		
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		
+--		EnableCommand<="10001000";
+--		SSS<="000";                wait for 80 ns;
+--		
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		SSS<="ZZZ";
+--		
+--		EnableCommand<="10010111";
+--		SSS<="111";                wait for 80 ns;
+--		
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		SSS<="ZZZ";
+--		
+--		EnableCommand<="10011111";
+--		SSS<="111";                wait for 80 ns;
+--		
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
+--		SSS<="ZZZ";
 		
-		ControlBus(19 downto 14)<="100101"; wait for 20 ns; --Write counter to BUS	
-		ControlBus(5 downto 5)<="1";        wait for 20 ns; --Memory WRITE to InternalBus
-		ControlBus(3 downto 3)<="0";        wait for 20 ns; --InstReg READ
-		ControlBus(3 downto 3)<="1";        wait for 20 ns; --InstReg ToDecoder
-		ControlBus(19 downto 14)<="110101"; wait for 20 ns; --Increment counter
+		
+		
+--		EnableCommand<="10000000";
+--		SSS<="000";
+		
+--		ControlBus(19 downto 14)<="100101"; wait for 20 ns; --Write counter to BUS	
+--		ControlBus(5 downto 5)<="1";        wait for 20 ns; --Memory WRITE to InternalBus
+--		ControlBus(3 downto 3)<="0";        wait for 20 ns; --InstReg READ
+--		ControlBus(3 downto 3)<="1";        wait for 20 ns; --InstReg ToDecoder
+--		ControlBus(19 downto 14)<="110101"; wait for 20 ns; --Increment counter
 --		ControlBus(19 downto 14)<="100101"; wait for 20 ns; --Write counter to BUS
 --		ToALUFromFlags<="00000001";
 --		
