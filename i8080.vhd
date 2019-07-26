@@ -26,7 +26,7 @@ signal F1_command: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal F2_command: STD_LOGIC;
 signal FromALUToDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal ToALUFromDA: STD_LOGIC_VECTOR(7 DOWNTO 0);
-signal AdressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
+signal AddressBus: STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal EnableCommand: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal DDD: STD_LOGIC_VECTOR(2 DOWNTO 0);
 signal SSS: STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -140,7 +140,7 @@ PORT(
 	CLK: IN STD_LOGIC;
 	RESET: IN STD_LOGIC;
 	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	ToAdressBus: OUT STD_LOGIC_VECTOR (15 DOWNTO 0); 
+	ToAddressBus: OUT STD_LOGIC_VECTOR (15 DOWNTO 0); 
 	ControlBus: IN STD_LOGIC_VECTOR(5 DOWNTO 0)
 );
 END COMPONENT CommonRegisters;
@@ -149,7 +149,7 @@ COMPONENT RAM
 PORT(
 	CLK: IN STD_LOGIC;
 	InternalDataBus: INOUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-	FromAdressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+	FromAddressBus: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
 	ControlBus: IN STD_LOGIC
 );
 END COMPONENT RAM;
@@ -159,14 +159,14 @@ BEGIN
 	U0: ALU PORT MAP (CLK, RESET, LatchOutput, BufferOutput, InternalDataBus, FromALUtoFlags, ToALUFromFlags, FromALUToDA, ToALUFromDA, F1_command, F2_command, ControlBus(22 downto 20));
 	U1: Accumulator PORT MAP (CLK, RESET, InternalDataBus, AccumulatorOutput, ControlBus(0));
 	U2: AccumulatorLatch PORT MAP (CLK, RESET, AccumulatorOutput, LatchOutput, ControlBus(1));
-	U3: BufferRegister PORT MAP (CLK, RESET, InternalDataBus, BufferOutput, ControlBus(3));
+	U3: BufferRegister PORT MAP (CLK, RESET, InternalDataBus, BufferOutput, ControlBus(2));
 	U4: FlagFlipFlops PORT MAP (CLK, RESET, InternalDataBus, ToALUFromFlags, FromALUtoFlags, ControlBus(9 downto 8));
 	U5: DecimalAdjust PORT MAP (CLK, RESET, ToALUFromDA, FromALUToDA, ControlBus(11 downto 10));
 	U6: InstructionRegister PORT MAP (CLK, RESET, InternalDataBus, ToDecoder, ControlBus(3));
 	U7: InstructionDecoder PORT MAP (CLK, RESET, ToDecoder, EnableCommand, DDD, SSS, ControlBus(4));
 	U8: TimingAndControlUnit PORT MAP (CLK, RESET, InternalDataBus, EnableCommand, DDD, SSS, F1_command, F2_command, ControlBus);
-	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, AdressBus, ControlBus(19 downto 14));
-	U10: RAM PORT MAP (CLK, InternalDataBus, AdressBus, ControlBus(5));
+	U9: CommonRegisters PORT MAP (CLK, RESET, InternalDataBus, AddressBus, ControlBus(19 downto 14));
+	U10: RAM PORT MAP (CLK, InternalDataBus, AddressBus, ControlBus(5));
 	
 	LED<=AccumulatorOutput;
 	

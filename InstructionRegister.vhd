@@ -20,7 +20,7 @@ BEGIN
 	BEGIN
 		IF (rising_edge(CLK)) THEN
 			IF(RESET='1') THEN
-				InstrReg<="00000000";
+				InstrReg<= (others => 'Z');
 			ELSE
 				case ControlBus IS
 					when '0' => InstrReg <= InternalDataBus;
@@ -32,17 +32,3 @@ BEGIN
 	END PROCESS;
 
 END MAIN;
-	
---	PROCESS(CLK, InstrReg, RESET, InternalDataBus, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				InstrReg<="00000000";
---			ELSE
---				case ControlBus(16 downto 16) IS
---					when "0" => InstrReg <= InternalDataBus;
---					when others => ToDecoder <= InstrReg;
---				end case;
---			END IF;
---		END IF;
---	END PROCESS;
