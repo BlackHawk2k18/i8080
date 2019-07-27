@@ -54,10 +54,10 @@ BEGIN
 							ControlBus(19 downto 14)<="110101"; --Increment counter
 							ControlBus(5 downto 5)<="Z";        --Memory HOLD
 						when "00001000" =>
-							ControlBus(0 downto 0)<="Z";        --Accumulator READ from InternalBus 
+							ControlBus(0 downto 0)<="Z";        --Accumulator READ from InternalBus
 						when others =>
 							ControlBus<=(others => 'Z');
-							CommandReset<='Z';
+							CommandReset<='0'; 
 							Counter<=(others => 'Z');
 					end case;
 				when others => 

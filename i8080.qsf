@@ -102,6 +102,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name SYNTH_GATED_CLOCK_CONVERSION ON
 set_global_assignment -name VHDL_FILE i8080.vhd
 set_global_assignment -name VHDL_FILE Accumulator.vhd
 set_global_assignment -name VHDL_FILE AccumulatorLatch.vhd

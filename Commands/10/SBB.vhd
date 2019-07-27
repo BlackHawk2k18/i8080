@@ -69,7 +69,7 @@ BEGIN
 							ControlBus<=(others => 'Z');
 							F1_command<=(others => 'Z');
 							F2_command<='Z';
-							CommandReset<='Z';
+							CommandReset<='0'; 
 							Counter<=(others => 'Z');
 					end case;
 				when others => 
