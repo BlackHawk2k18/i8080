@@ -63,6 +63,7 @@ BEGIN
 						when "00000011" => 
 							ControlBus(19 downto 14)<="110101"; --Increment counter
 							ControlBus(0 downto 0)<="0";        --Accumulator READ from InternalBus
+							ControlBus(22 downto 20)<="ZZZ";    --ШД<-АЛУ
 						when others =>
 							ControlBus<=(others => 'Z');
 							F1_command<=(others => 'Z');

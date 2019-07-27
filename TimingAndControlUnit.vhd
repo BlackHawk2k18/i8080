@@ -672,20 +672,23 @@ BEGIN
 --	U56: RST     PORT MAP (CLK, EnableCommand, CommandReset, DDD, Buff_ControlBus);
 -------------------------------------------------------11 GROUP-------------------------------------------------------	
 
-	PROCESS(CLK, CommandReset, RESET)
-	BEGIN
-		IF(RESET='1') THEN
-			Counter<=(others => '0');
-			ControlBus<= (others => 'Z');
-		ELSIF(rising_edge(CLK)) THEN	
-			IF(Counter="0000111") THEN
-				Counter<=(others => '0');
-				ControlBus<= (others => 'Z');
-			ELSE
-				Counter<=Counter+1;
-			END IF;
-		END IF;
-	END PROCESS;
+--	PROCESS(CLK, CommandReset, RESET)
+--	BEGIN
+--		IF(RESET='1') THEN
+--			Counter<=(others => '0');
+--			ControlBus<= (others => 'Z');
+--		ELSIF(rising_edge(CLK)) THEN	
+--			IF(Counter="0001011") THEN
+--				Counter<=(others => '0');
+--			ELSE
+--				Counter<=Counter+1;
+--			END IF;
+--		END IF;
+--	END PROCESS;
+	
+	Counter<=(others => '0') when RESET='1' else
+				(others => '0') when (CommandReset'EVENT and CommandReset='Z') else
+				Counter+1 when (rising_edge(CLK)) else Counter;
 
 	ControlBus(19 downto 14)<="100101" when (Counter="00000010") else "ZZZZZZ"; --Write counter to BUS
 	

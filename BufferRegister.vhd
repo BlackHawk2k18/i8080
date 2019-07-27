@@ -22,19 +22,3 @@ BEGIN
 	BufferOutput<=RegBuff when (ControlBus='1') else (others=>'Z');
 
 END MAIN;
-
-
---	PROCESS(CLK, RegBuff, RESET, InternalDataBus, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				RegBuff<="00000000";
---			ELSE
---				case ControlBus IS
---					when '0' => RegBuff <= InternalDataBus;
---					when '1' => BufferOutput <= RegBuff;
---					when others => BufferOutput<="ZZZZZZZZ"; 
---				end case;
---			END IF;
---		END IF;
---	END PROCESS;

@@ -27,14 +27,34 @@ BEGIN
 					case Counter is
 						when "00000000" => 
 							ControlBus(19 downto 14)<="110101"; --Increment counter
-							ControlBus(0 downto 0)<="0";        --Accumulator READ from InternalBus
 						when "00000001" =>
 							ControlBus(5 downto 5)<="1";        --Memory WRITE to InternalBus
-							ControlBus(19 downto 14)<="100101"; --Write counter to BUS
-						when "00000010" =>   
+							ControlBus(19 downto 14)<="100101"; --Write counter to ADDRESS BUS
+						when "00000010" =>
+							ControlBus(19 downto 14)<="010011"; --Write InternalBUS to "L"
+							ControlBus(5 downto 5)<="Z";        --Memory HOLD
+							
+							
+						when "00000011" =>
 							ControlBus(19 downto 14)<="110101"; --Increment counter
-							ControlBus(5 downto 5)<="Z";
-						when "00000100" => null;
+						when "00000100" => 
+							ControlBus(5 downto 5)<="1";        --Memory WRITE to InternalBus
+							ControlBus(19 downto 14)<="100101"; --Write counter to ADDRESS BUS	
+						when "00000101" =>
+							ControlBus(19 downto 14)<="000011"; --Write InternalBUS to "H"
+							ControlBus(5 downto 5)<="Z";        --Memory HOLD
+								
+								
+						when "00000110" =>
+							ControlBus(5 downto 5)<="1";        --Memory WRITE to InternalBus
+							ControlBus(19 downto 14)<="100011"; --Write "HL" to ADDRESS BUS
+							ControlBus(0 downto 0)<="0";        --Accumulator READ from InternalBus
+						
+						when "00000111" =>	
+							ControlBus(19 downto 14)<="110101"; --Increment counter
+							ControlBus(5 downto 5)<="Z";        --Memory HOLD
+						when "00001000" =>
+							ControlBus(0 downto 0)<="Z";        --Accumulator READ from InternalBus 
 						when others =>
 							ControlBus<=(others => 'Z');
 							CommandReset<='Z';

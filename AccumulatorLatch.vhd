@@ -22,18 +22,3 @@ BEGIN
 	LatchOutput<=RegAccLatch when (ControlBus='1') else (others=>'Z');	
 
 END MAIN;
-
---PROCESS(CLK, RegAccLatch, RESET, FromAccumulator, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				RegAccLatch<="00000000";
---			ELSE
---				case ControlBus IS
---					when '0' => RegAccLatch <= FromAccumulator;
---					when '1' => LatchOutput <= RegAccLatch;
---					when others => LatchOutput<="ZZZZZZZZ"; 
---				end case;
---			END IF;
---		END IF;
---	END PROCESS;

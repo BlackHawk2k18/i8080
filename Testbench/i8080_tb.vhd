@@ -155,25 +155,25 @@ BEGIN
 		RESET<='1'; wait for 10 ns;
 		RESET<='0'; wait for 20 ns;
 
---		EnableCommand<="00111010"; wait for 60 ns;
+--		EnableCommand<="00111010"; wait for 180 ns;
 --		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
 --		
 --		EnableCommand<="10000000"; 
 --		SSS<="000";                wait for 80 ns;
 --		
---		EnableCommand<="ZZZZZZZZ"; wait for 60 ns;
+--		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
 --		
 --		EnableCommand<="10001000";
 --		SSS<="000";                wait for 80 ns;
 --		
---		EnableCommand<="ZZZZZZZZ"; wait for 60 ns;
---		SSS<="ZZZ";
+--		EnableCommand<="ZZZZZZZZ"; 
+--		SSS<="ZZZ";                wait for 20 ns;
 --		
 --		EnableCommand<="10010111";
 --		SSS<="111";                wait for 80 ns;
 --		
---		EnableCommand<="ZZZZZZZZ"; wait for 20 ns;
---		SSS<="ZZZ";
+--		EnableCommand<="ZZZZZZZZ";
+--		SSS<="ZZZ";                wait for 20 ns;
 --		
 --		EnableCommand<="10011111";
 --		SSS<="111";                wait for 80 ns;

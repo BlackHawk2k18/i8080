@@ -26,20 +26,3 @@ BEGIN
 	AccumulatorOutput<=RegAcc;	
 	
 END MAIN;
---
---	PROCESS(CLK, RegAcc, RESET, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				RegAcc<="00000000";
---			ELSE
---				IF (ControlBus='0') THEN
---					RegAcc <= InternalDataBus;
---				ELSIF (ControlBus='1') THEN
---					InternalDataBus <= RegAcc;
---				ELSE
---					InternalDataBus <= "ZZZZZZZZ";
---				END IF;
---			END IF;
---		END IF;
---	END PROCESS;

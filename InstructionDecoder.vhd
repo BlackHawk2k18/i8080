@@ -23,19 +23,3 @@ BEGIN
 	EnableCommand<=FromInstructionRegister;
 
 END MAIN;
-
---	PROCESS(CLK, DecoderReg, RESET, FromInstructionRegister, ControlBus)
---	BEGIN
---		IF (rising_edge(CLK)) THEN
---			IF(RESET='1') THEN
---				DecoderReg<="00000000";
---				EnableCommand<="ZZZZZZZZ";
---				DDD<="ZZZ";
---				SSS<="ZZZ";
---			ELSE
---				DDD <= FromInstructionRegister(5 downto 3);
---				SSS <= FromInstructionRegister(2 downto 0);
---				EnableCommand<=FromInstructionRegister;
---			END IF;
---		END IF;
---	END PROCESS;
