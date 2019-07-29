@@ -17,23 +17,12 @@ ARCHITECTURE MAIN OF FlagFlipFlops IS
 signal FlipFlopReg: STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 
-	PROCESS(CLK, FlipFlopReg, RESET, InternalDataBus, ControlBus, FromALUtoFlags)
-		BEGIN
-			IF (rising_edge(CLK)) THEN
-				IF(RESET='1') THEN
-					FlipFlopReg<="00000010";
-					InternalDataBus<="ZZZZZZZZ";
-				ELSE
-					case ControlBus IS
-						when "00" => FlipFlopReg <= InternalDataBus;
-						when "01" => InternalDataBus <= FlipFlopReg;
-						when "10" => FlipFlopReg <= FromALUtoFlags;
-						when "11" => ToALUFromFlags <= FlipFlopReg;
-						when others => InternalDataBus<="ZZZZZZZZ";
-											ToALUFromFlags<="ZZZZZZZZ";
-					end case;
-				END IF;
-			END IF;
-		END PROCESS;
-		
+	FlipFlopReg<="00000010"      when RESET='1'         else
+					 InternalDataBus when (ControlBus="00") else
+					 FromALUtoFlags  when (ControlBus="10") else FlipFlopReg;
+	
+	ToALUFromFlags<=FlipFlopReg  when (ControlBus="11") else (others => 'Z');
+	
+	InternalDataBus<=FlipFlopReg when (ControlBus="01") else (others => 'Z');
+
 END MAIN;
