@@ -5,7 +5,7 @@ Commands and functional blocks status:
 
 1)Data transfer commands:
 
-	MOV: NOT READY;
+	MOV: UNDER TEST;
 	MVI: NOT READY;
 	LXI: NOT READY;
 	STAX: NOT READY;
