@@ -19,7 +19,7 @@ signal Counter: unsigned(7 downto 0);
 -------------------------------------------------------
 BEGIN
 
-PROCESS(CLK, Counter, EnableCommand, SSS, DDD)
+	PROCESS(CLK, Counter, EnableCommand, SSS, DDD)
 	BEGIN
 		IF (rising_edge(CLK)) THEN
 			case EnableCommand(7 downto 6) is
@@ -48,6 +48,7 @@ PROCESS(CLK, Counter, EnableCommand, SSS, DDD)
 								when "111" => ControlBus(0 downto 0)<="1";        --ШД<-РА
 							-------------------------------------------------------
 								when others => null;
+							end case;
 						when "00000001" => ControlBus(0 downto 0)<="0";         --РА<-SSS
 						when "00000010" =>
 							case DDD is
@@ -70,7 +71,7 @@ PROCESS(CLK, Counter, EnableCommand, SSS, DDD)
 								when "111" => ControlBus(0 downto 0)<="0";        --РА<-ШД
 							-------------------------------------------------------
 								when others => null;
-							
+							end case;
 						when "00000011" => ControlBus(0 downto 0)<="1";         --ШД<-РА
 						when others =>
 							ControlBus<=(others => 'Z');
